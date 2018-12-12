@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArtifactAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ArtifactAPI.0.1.3\lib\net46\ArtifactAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
+    <Compile Include="Converters\TimeToDisplayConverter.cs" />
     <Compile Include="Dtos\Match.cs" />
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
@@ -112,6 +116,7 @@
     <Content Include="getMatchData.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\favicon.png" />
     <Resource Include="Images\tower.png" />
     <Resource Include="SampleData.txt" />
   </ItemGroup>

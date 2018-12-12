@@ -1,4 +1,5 @@
-﻿using ArtifactAPI.MatchHistory.Enums;
+﻿using ArtifactAPI.Enums;
+using ArtifactAPI.MatchHistory.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -40,6 +41,8 @@ namespace ArtifactAPI.MatchHistory.Dtos
         public int GauntletId { get; set; }
         public string DeckCode { get; set; }
 
+        public List<string> Heroes { get; set; }
+
         private string m_heroOne;
         public string Hero1
         {
@@ -47,7 +50,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
             set
             {
                 m_heroOne = value;
-                LoadHeroUrl(m_heroOne);
+                LoadHeroUrl(m_heroOne, 0);
             }
         }
 
@@ -58,7 +61,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
             set
             {
                 m_heroTwo = value;
-                LoadHeroUrl(m_heroTwo);
+                LoadHeroUrl(m_heroTwo, 1);
             }
         }
 
@@ -69,7 +72,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
             set
             {
                 m_heroThree = value;
-                LoadHeroUrl(m_heroThree);
+                LoadHeroUrl(m_heroThree, 2);
             }
         }
 
@@ -80,7 +83,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
             set
             {
                 m_heroFour = value;
-                LoadHeroUrl(m_heroFive);
+                LoadHeroUrl(m_heroFour, 3);
             }
         }
 
@@ -91,17 +94,37 @@ namespace ArtifactAPI.MatchHistory.Dtos
             set
             {
                 m_heroFive = value;
-                LoadHeroUrl(m_heroFive);
+                LoadHeroUrl(m_heroFive, 4);
             }
         }
 
+        ArtifactClient m_client;
 
-        public List<string> Heroes { get; set; }
-
-        //private ArtifactAPI.ArtifactClient m_client;
-
-        private void LoadHeroUrl(string heroName)
+        public Match(ArtifactClient client)
         {
+            m_client = client;
+        }
+
+        private async System.Threading.Tasks.Task LoadHeroUrl(string heroName, int heroIndex)
+        {
+            string url = await m_client.GetCardArtUrlAsync(heroName, ArtType.Mini);
+            if (string.IsNullOrEmpty(url))
+            {
+                Console.WriteLine($"Cannot find URL for '{heroName}'");
+                return;
+            }
+
+            if (Heroes == null)
+                Heroes = new List<string>();
+
+            if(Heroes.Count - 1 > heroIndex)
+            {
+                Heroes.Insert(heroIndex, url);
+            }
+            else
+            {
+                Heroes.Add(url);
+            }
         }
     }
 }

@@ -17,7 +17,7 @@
             all_output += output + (i == row_list.length - 1 ? "" : ",");
         }
         /*Remove all tabs, new lines, etc*/
-        all_output = all_output.replace(/[ {4}\t\n\r]/gm, '');
+        all_output = all_output.replace(/\r?\n|\r/, '');
         console.log(all_output);
     };
     const b1 = document.getElementById("load_more_button");
