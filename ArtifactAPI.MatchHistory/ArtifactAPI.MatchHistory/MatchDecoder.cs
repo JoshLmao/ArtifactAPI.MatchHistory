@@ -1,4 +1,5 @@
 ﻿using ArtifactAPI.MatchHistory.Dtos;
+using ArtifactAPI.MatchHistory.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace ArtifactAPI.MatchHistory
                     }
                     else if (i == 2)
                     {
-                        m.MatchMode = int.Parse(properties[i]);
+                        m.MatchMode = (MatchMode)int.Parse(properties[i]);
                     }
                     else if (i == 3)
                     {
@@ -63,7 +64,7 @@ namespace ArtifactAPI.MatchHistory
                     }
                     else if (i == 5)
                     {
-                        m.MatchOutcome = int.Parse(properties[i]);
+                        m.MatchOutcome = (Outcome)int.Parse(properties[i]);
                     }
                     else if (i == 6)
                     {
@@ -79,7 +80,7 @@ namespace ArtifactAPI.MatchHistory
                     }
                     else if(i == 9)
                     {
-                        m.Team = int.Parse(properties[i]);
+                        m.Team = (Teams)int.Parse(properties[i]);
                     }
                     else if (i == 10)
                     {
@@ -139,7 +140,10 @@ namespace ArtifactAPI.MatchHistory
                     }
                 }
 
-                matches.Add(m);
+                if (!matches.Exists(x => x.MatchId == m.MatchId))
+                {
+                    matches.Add(m);
+                }
             }
 
             return matches;

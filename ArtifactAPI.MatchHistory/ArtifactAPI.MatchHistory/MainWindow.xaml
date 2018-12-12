@@ -4,34 +4,133 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArtifactAPI.MatchHistory"
+        xmlns:dtos="clr-namespace:ArtifactAPI.MatchHistory.Dtos"
+        xmlns:converters="clr-namespace:ArtifactAPI.MatchHistory.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <converters:OutcomeToColorConverter x:Key="o2cc"/>
+    </Window.Resources>
     <Grid Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid>
-            <StackPanel>
-                <TextBlock Text="How to use:" FontSize="15"/>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="1. Open this link to view all of your match data stored by Valve"/>
-                    <TextBlock Padding="5,0">
+        <Grid Name="c_getHistory" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="How to use:" FontSize="15"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="1. Open this link to view all of your match data stored by Valve"/>
+                        <TextBlock Padding="5,0">
                         <Hyperlink NavigateUri="https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers" RequestNavigate="OnRequestOpenUri">
                             Link
                         </Hyperlink>
-                    </TextBlock>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="2. In URL bar, Type javascript: and paste the following script afterward, then press Enter"/>
+                        <TextBox Name="javascriptCopy" Height="60" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel>
-                    <TextBlock Text="2. In URL bar, Type javascript: and paste the following script afterward, then press Enter"/>
-                    <TextBox Name="javascriptCopy" Height="60" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-                </StackPanel>
-            </StackPanel>
+            </Grid>
+            <DockPanel Grid.Row="1" Margin="5">
+                <TextBlock Text="3. Wait and paste the output into here" DockPanel.Dock="Top"/>
+                <TextBlock Text="Paste Output Here:" DockPanel.Dock="Top"/>
+                <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True"/>
+            </DockPanel>
         </Grid>
-        <DockPanel Grid.Row="1" Margin="5">
-            <TextBlock Text="3. Wait and paste the output into here" DockPanel.Dock="Top"/>
-            <TextBlock Text="Paste Output Here:" DockPanel.Dock="Top"/>
-            <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True"/>
-        </DockPanel>
+
+        <!--Match Container-->
+        <Grid Name="c_matchHistory">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!--Total Stats-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Name="tb_title" Text="Game History" FontSize="20"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <DockPanel>
+                            <TextBlock Text="Total Matches:"/>
+                            <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
+                        </DockPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                        <ItemsControl Name="ic_gameHistory">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type dtos:Match}">
+                                    <Grid Background="{Binding MatchOutcome, Converter={StaticResource o2cc}}" Margin="5,3" Height="50">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!--Left side-->
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding MatchId}" Padding="5,3"/>
+                                            <TextBlock Text="{Binding AccountId}" Padding="5,3"/>
+                                            <TextBlock Text="{Binding Team}" Padding="5,3" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Duration}" VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <!--Tower/Ancient Health-->
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                            <TextBlock Text="Towers:" VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                <Image Source="/Images/tower.png" Height="20"/>
+                                                <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                <Image Source="/Images/tower.png" Height="20"/>
+                                                <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                <Image Source="/Images/tower.png" Height="20"/>
+                                                <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <TextBlock Text="Ancient" VerticalAlignment="Center"/>
+                                            <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                <Image Source="/Images/tower.png" Height="20" />
+                                                <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!--Heroes & Icons-->
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                            <!--<TextBlock Text="{Binding DeckCode}"/>-->
+                                            <ItemsControl ItemsSource="{Binding Heroes}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding }"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

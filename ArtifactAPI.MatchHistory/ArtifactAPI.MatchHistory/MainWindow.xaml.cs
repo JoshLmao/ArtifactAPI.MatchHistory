@@ -25,6 +25,9 @@ namespace ArtifactAPI.MatchHistory
         {
             string fileText = File.ReadAllText("getMatchData.js");
             javascriptCopy.Text = fileText;
+
+            c_getHistory.Visibility = Visibility.Visible;
+            c_matchHistory.Visibility = Visibility.Collapsed;
         }
 
         private void OnRequestOpenUri(object sender, RequestNavigateEventArgs e)
@@ -38,9 +41,27 @@ namespace ArtifactAPI.MatchHistory
             TextBox box = e.Source as TextBox;
             string pasted = box.Text;
 
-            List<Match> result = MatchDecoder.DecodeMatch(pasted);
-            if (result == null)
+            List<Match> matches = MatchDecoder.DecodeMatch(pasted);
+            PopulateGameHistory(matches);
+        }
+
+        void PopulateGameHistory(List<Match> allMatches)
+        {
+            if (allMatches == null)
+            {
+                throw new ArgumentNullException(nameof(allMatches));
+            }
+
+            if (allMatches == null || (allMatches != null && allMatches.Count <= 0))
                 return;
+
+            //Set UI visibility
+            c_getHistory.Visibility = Visibility.Collapsed;
+            c_matchHistory.Visibility = Visibility.Visible;
+
+            //Set total stats
+            tb_totalMatches.Text = $"{allMatches.Count} matches";
+            ic_gameHistory.ItemsSource = allMatches;
         }
     }
 }
