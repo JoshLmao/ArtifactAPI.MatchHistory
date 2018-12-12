@@ -39,7 +39,7 @@
                 </StackPanel>
             </Grid>
             <DockPanel Grid.Row="1" Margin="5">
-                <TextBlock Text="3. Wait and paste the output into here" DockPanel.Dock="Top"/>
+                <TextBlock Text="3. Wait for the script to complete. Paste the text from inside the TextBox when done" DockPanel.Dock="Top"/>
                 <TextBlock Text="Paste Output Here:" DockPanel.Dock="Top"/>
                 <TextBlock Name="t_invalidCode" Text="Invalid entry. Check the instructions and try again" DockPanel.Dock="Top" HorizontalAlignment="Center" Foreground="Red"/>
                 <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True"/>

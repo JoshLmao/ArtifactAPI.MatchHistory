@@ -1,9 +1,10 @@
 (() => {
+    let all_output = "";
     /*Modified script from https://illuminate.dotasphere.com/*/
     const read_data = () => {
         const player_name = document.getElementsByClassName("profile_small_header_name")[0].children[0].textContent;
         const row_list = document.getElementById("personaldata_elements_container").querySelectorAll("tr");
-        let all_output = "";
+        all_output = "";
         /*For each row in table*/
         for (let i = 1; i < row_list.length; i++)
         {
@@ -16,9 +17,7 @@
             }
             all_output += output + (i == row_list.length - 1 ? "" : ",");
         }
-        /*Remove all tabs, new lines, etc*/
         all_output = all_output.replace(/\r?\n|\r/, '');
-        console.log(all_output);
     };
     const b1 = document.getElementById("load_more_button");
     const b2 = document.getElementById("inventory_history_loading");
@@ -36,6 +35,16 @@
                     clearInterval(interval);
                     console.log(`done`);
                     read_data();
+                    /*Display title & text to copy*/
+                    const b3 = document.getElementById("personaldata_elements_container");
+                    const title = document.createElement("h1");
+                    const input = document.createElement("INPUT");
+                    input.setAttribute("value", all_output);
+                    const titleText = document.createTextNode("Copy ALL of this: ");
+                    title.appendChild(titleText);
+                    title.appendChild(input);
+                    input.onclick = function () { this.select(); };
+                    b3.insertBefore(title, b3.childNodes[1]);
                 }
             }
         }, 100);
