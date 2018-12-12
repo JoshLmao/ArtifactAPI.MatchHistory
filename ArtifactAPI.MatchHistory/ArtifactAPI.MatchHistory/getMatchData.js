@@ -3,6 +3,7 @@
     const read_data = () => {
         const player_name = document.getElementsByClassName("profile_small_header_name")[0].children[0].textContent;
         const row_list = document.getElementById("personaldata_elements_container").querySelectorAll("tr");
+        let all_output = "";
         /*For each row in table*/
         for (let i = 1; i < row_list.length; i++)
         {
@@ -11,14 +12,13 @@
             /*for each column in list*/
             for (let j = 0; j < col_list.length; j++)
             {
-                output += col_list[j].textContent + "-";
+                output += col_list[j].textContent + (j == col_list.length - 1 ? "" : "|");
             }
-            all_output += output + ","
+            all_output += output + (i == row_list.length - 1 ? "" : ",");
         }
-        /*Copy output to clipboard*/
+        /*Remove all tabs, new lines, etc*/
+        all_output = all_output.replace(/[ {4}\t\n\r]/gm, '');
         console.log(all_output);
-
-
     };
     const b1 = document.getElementById("load_more_button");
     const b2 = document.getElementById("inventory_history_loading");

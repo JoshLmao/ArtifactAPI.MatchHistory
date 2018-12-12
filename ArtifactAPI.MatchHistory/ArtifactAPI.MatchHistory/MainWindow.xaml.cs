@@ -1,18 +1,10 @@
-﻿using System;
+﻿using ArtifactAPI.MatchHistory.Dtos;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ArtifactAPI.MatchHistory
 {
@@ -43,12 +35,12 @@ namespace ArtifactAPI.MatchHistory
 
         private void OnOutputPasted(object sender, TextChangedEventArgs e)
         {
-            string pastedString = e.Source as String;
+            TextBox box = e.Source as TextBox;
+            string pasted = box.Text;
 
-            object result = StringDecoder.DecodeString(pastedString);
+            List<Match> result = MatchDecoder.DecodeMatch(pasted);
             if (result == null)
                 return;
-
         }
     }
 }

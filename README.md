@@ -11,6 +11,8 @@
 
 Simple application for viewing you match history in Artifact.
 
+Thanks to [Bongikairu](https://github.com/bongikairu/illuminate) for originally creating the Javascript script [for his site to view your DotA 2 commends](https://illuminate.dotasphere.com/)
+
 # Instructions
 
 1. Open [this link](https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers) to view your current Artifact game history

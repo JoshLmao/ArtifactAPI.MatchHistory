@@ -30,8 +30,8 @@
         </Grid>
         <DockPanel Grid.Row="1" Margin="5">
             <TextBlock Text="3. Wait and paste the output into here" DockPanel.Dock="Top"/>
-            <TextBlock Text="Paste Output Here" DockPanel.Dock="Top"/>
-            <TextBox Name="outputBox" Margin="5,0"/>
+            <TextBlock Text="Paste Output Here:" DockPanel.Dock="Top"/>
+            <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True"/>
         </DockPanel>
     </Grid>
 </Window>
