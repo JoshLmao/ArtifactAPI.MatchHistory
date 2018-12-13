@@ -1,5 +1,5 @@
 ﻿using ArtifactAPI.MatchHistory.Dtos;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -99,6 +99,12 @@ namespace ArtifactAPI.MatchHistory
 
             //Set total stats
             tb_totalMatches.Text = $"{allMatches.Count} matches";
+
+            int totalWins = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
+            int totalLoss = allMatches.Sum(x => (x.MatchOutcome == Enums.Outcome.Loss) ? 1 : 0);
+            int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
+            tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss}";
+
             ic_gameHistory.ItemsSource = allMatches;
         }
     }

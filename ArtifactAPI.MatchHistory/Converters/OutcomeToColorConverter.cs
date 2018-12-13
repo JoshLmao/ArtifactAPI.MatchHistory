@@ -14,9 +14,9 @@ namespace ArtifactAPI.MatchHistory.Converters
             switch (outcome)
             {
                 case Outcome.Loss:
-                    return Brushes.IndianRed;
+                    return Brushes.DarkRed;
                 case Outcome.Victory:
-                    return Brushes.LightGreen;
+                    return Brushes.DarkGreen;
                 case Outcome.Draw:
                     return Brushes.OrangeRed;
                 default:

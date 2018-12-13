@@ -9,7 +9,8 @@
         Title="ArtifactAPI - Artifact Match History" 
         MinHeight="450"
         MinWidth="800"
-        Icon="/Images/favicon.png">
+        Icon="/Images/favicon.png" Background="#FF2E2E2E"
+        TextElement.Foreground="White">
     <!--Created by JoshLmao-->
     <Window.Resources>
         <converters:OutcomeToColorConverter x:Key="o2cc"/>
@@ -25,26 +26,27 @@
             </Grid.RowDefinitions>
             <Grid>
                 <StackPanel>
+                    <TextBlock Text="GameHistory Instructions:" FontSize="20"/>
                     <TextBlock Text="How to use:" FontSize="15"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="1. Open this link to view all of your match data stored by Valve"/>
+                    <StackPanel Orientation="Horizontal" TextElement.FontSize="13">
+                        <TextBlock Text="1. Open this link to view all of your current match data stored by Valve"/>
                         <TextBlock Padding="5,0">
-                        <Hyperlink NavigateUri="https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers" RequestNavigate="OnRequestOpenUri">
+                        <Hyperlink NavigateUri="https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers" RequestNavigate="OnRequestOpenUri" FontWeight="Bold">
                             Link
                         </Hyperlink>
                         </TextBlock>
                     </StackPanel>
-                    <StackPanel>
-                        <TextBlock Text="2. In URL bar, Type javascript: and paste the following script afterward, then press Enter"/>
-                        <TextBox Name="tb_javascriptCopy" Height="60" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+                    <StackPanel TextElement.FontSize="13">
+                        <TextBlock Text="2. In URL bar, Type 'javascript:' and paste the following script afterward, then press Enter"/>
+                        <TextBox Name="tb_javascriptCopy" Height="60" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Visible" FontSize="11"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
-            <DockPanel Grid.Row="1" Margin="5">
+            <DockPanel Grid.Row="1" Margin="5" TextElement.FontSize="13">
                 <TextBlock Text="3. Wait for the script to complete. Paste the text from inside the TextBox when done" DockPanel.Dock="Top"/>
                 <TextBlock Text="Paste Output Here:" DockPanel.Dock="Top"/>
                 <TextBlock Name="t_invalidCode" Text="Invalid entry. Check the instructions and try again" DockPanel.Dock="Top" HorizontalAlignment="Center" Foreground="Red"/>
-                <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True"/>
+                <TextBox Name="outputBox" Margin="5,0" AcceptsReturn="True" AcceptsTab="True" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
             </DockPanel>
         </Grid>
 
@@ -68,14 +70,16 @@
                         </Button>
                     </Grid>
                     <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <DockPanel>
-                            <TextBlock Text="Total Matches:"/>
-                            <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
-                        </DockPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <DockPanel>
+                                <TextBlock Text="Total Matches:"/>
+                                <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Wins/Draws/Losses:"/>
+                                <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
+                            </DockPanel>
+                        </StackPanel>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
@@ -89,7 +93,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type dtos:Match}">
                                     <Border BorderBrush="Black" BorderThickness="1.5" Margin="5,3"  Height="50">
-                                        <Grid Background="{Binding MatchOutcome, Converter={StaticResource o2cc}}">
+                                        <Grid Background="#FF131312">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*"/>
                                                 <ColumnDefinition Width="3*"/>
@@ -97,11 +101,12 @@
                                             </Grid.ColumnDefinitions>
                                             <!--Left side-->
                                             <StackPanel Orientation="Horizontal">
+                                                <Rectangle Fill="{Binding MatchOutcome, Converter={StaticResource o2cc}}" Width="7"/>
                                                 <!--Id, Mode-->
                                                 <StackPanel VerticalAlignment="Center">
                                                     <TextBlock Text="{Binding MatchId}" Padding="5,0"/>
                                                     <TextBlock Text="{Binding MatchMode}" Padding="5,0"/>
-                                                    <TextBlock Text="Surrendered" Foreground="DarkRed" Padding="5,0" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
+                                                    <TextBlock Text="Surrendered" Foreground="DarkOrange" Padding="5,0" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                 </StackPanel>
                                                 <!--Player Id-->
                                                 <TextBlock Text="{Binding AccountId}" Padding="5,3" VerticalAlignment="Center"/>
