@@ -14,9 +14,11 @@
     <Window.Resources>
         <converters:OutcomeToColorConverter x:Key="o2cc"/>
         <converters:TimeToDisplayConverter x:Key="t2dc"/>
+        <converters:TowerHealthToImageConverter x:Key="th2ic"/>
+        <converters:FlagToVisibilityConverter x:Key="f2vc"/>
     </Window.Resources>
     <Grid Margin="5">
-        <Grid Name="c_getHistory" Visibility="Visible">
+        <Grid Name="c_getHistory" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition />
@@ -47,7 +49,7 @@
         </Grid>
 
         <!--Match Container-->
-        <Grid Name="c_matchHistory" Visibility="Hidden">
+        <Grid Name="c_matchHistory" Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -76,9 +78,8 @@
                         </DockPanel>
                     </Grid>
                 </Grid>
-
                 <Grid Grid.Row="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                         <ItemsControl Name="ic_gameHistory">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -87,67 +88,86 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type dtos:Match}">
-                                    <Grid Background="{Binding MatchOutcome, Converter={StaticResource o2cc}}" Margin="5,3" Height="50">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="3*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <!--Left side-->
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding MatchId}" Padding="5,3" VerticalAlignment="Center"/>
-                                            <TextBlock Text="{Binding AccountId}" Padding="5,3" VerticalAlignment="Center"/>
-                                            <StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="3,0">
-                                                    <TextBlock Text="Team:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                                                    <TextBlock Text="{Binding Team}" Padding="5,3" VerticalAlignment="Center"/>
+                                    <Border BorderBrush="Black" BorderThickness="1.5" Margin="5,3"  Height="50">
+                                        <Grid Background="{Binding MatchOutcome, Converter={StaticResource o2cc}}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!--Left side-->
+                                            <StackPanel Orientation="Horizontal">
+                                                <!--Id, Mode-->
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding MatchId}" Padding="5,0"/>
+                                                    <TextBlock Text="{Binding MatchMode}" Padding="5,0"/>
+                                                    <TextBlock Text="Surrendered" Foreground="DarkRed" Padding="5,0" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                 </StackPanel>
-                                                <StackPanel Orientation="Horizontal" Margin="3,0">
-                                                    <TextBlock Text="Duration:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                                                    <TextBlock Text="{Binding Duration, Converter={StaticResource t2dc}}" VerticalAlignment="Center"/>
+                                                <!--Player Id-->
+                                                <TextBlock Text="{Binding AccountId}" Padding="5,3" VerticalAlignment="Center"/>
+                                                <!--Details-->
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
+                                                        <TextBlock Text="Team:" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding Team}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                        <TextBlock Text="Duration:" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding Duration, Converter={StaticResource t2dc}}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                        <TextBlock Text="Outcome:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding MatchOutcome}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
+                                                        <TextBlock Text="Total Turns:" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding Turns}"/>
+                                                    </StackPanel>
                                                 </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
 
-                                        <!--Tower/Ancient Health-->
-                                        <StackPanel Grid.Column="1" Orientation="Horizontal">
-                                            <TextBlock Text="Towers:" VerticalAlignment="Center"/>
-                                            <StackPanel Orientation="Horizontal" Margin="5,0">
-                                                <Image Source="/Images/tower.png" Height="20"/>
-                                                <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center"/>
+                                            <!--Tower/Ancient Health-->
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5,0">
+                                                <TextBlock Text="Towers:" VerticalAlignment="Center"/>
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <Image Source="{Binding Tower1, Converter={StaticResource th2ic}}" Height="20"/>
+                                                    <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <Image Source="{Binding Tower2, Converter={StaticResource th2ic}}" Height="20"/>
+                                                    <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <Image Source="{Binding Tower3, Converter={StaticResource th2ic}}" Height="20"/>
+                                                    <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <TextBlock Text="Ancient:" VerticalAlignment="Center" Margin="5,0"/>
+                                                <StackPanel Orientation="Horizontal" Margin="5,0">
+                                                    <Image Source="{Binding Ancient, Converter={StaticResource th2ic}}" Height="20" />
+                                                    <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="5,0">
-                                                <Image Source="/Images/tower.png" Height="20"/>
-                                                <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="5,0">
-                                                <Image Source="/Images/tower.png" Height="20"/>
-                                                <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                            <TextBlock Text="Ancient" VerticalAlignment="Center"/>
-                                            <StackPanel Orientation="Horizontal" Margin="5,0">
-                                                <Image Source="/Images/tower.png" Height="20" />
-                                                <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </StackPanel>
 
-                                        <!--Heroes & Icons-->
-                                        <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                            <!--<TextBlock Text="{Binding DeckCode}"/>-->
-                                            <ItemsControl ItemsSource="{Binding Heroes}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <StackPanel Orientation="Horizontal"/>
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <Image Source="{Binding }" Width="45" Margin="5,3"/>
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </StackPanel>
-                                    </Grid>
+                                            <!--Heroes & Icons-->
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                                <!--<TextBlock Text="{Binding DeckCode}"/>-->
+                                                <ItemsControl ItemsSource="{Binding Heroes}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Horizontal"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Image Source="{Binding }" Width="45" Margin="5,3"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

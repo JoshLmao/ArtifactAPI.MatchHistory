@@ -65,8 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\FlagToVisibilityConverter.cs" />
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
+    <Compile Include="Converters\TowerHealthToImageConverter.cs" />
     <Compile Include="Dtos\Match.cs" />
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
@@ -116,6 +118,7 @@
     <Content Include="getMatchData.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\tower_destroyed.png" />
     <Resource Include="Images\favicon.png" />
     <Resource Include="Images\tower.png" />
     <Resource Include="SampleData.txt" />

@@ -40,10 +40,17 @@
                     const title = document.createElement("h1");
                     const input = document.createElement("INPUT");
                     input.setAttribute("value", all_output);
+                    const copyBtn = document.createElement("button");
+                    copyBtn.innerHTML = "Copy text (Insert into step 3)";
+                    copyBtn.style.marginLeft = "5px";
+                    copyBtn.addEventListener("click", function () {
+                        input.select();
+                        document.execCommand("copy");
+                    });
                     const titleText = document.createTextNode("Copy ALL of this: ");
                     title.appendChild(titleText);
                     title.appendChild(input);
-                    input.onclick = function () { this.select(); };
+                    title.appendChild(copyBtn);
                     b3.insertBefore(title, b3.childNodes[1]);
                 }
             }

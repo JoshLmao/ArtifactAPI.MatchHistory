@@ -33,12 +33,27 @@ namespace ArtifactAPI.MatchHistory.Dtos
         public int ClusterId { get; set; }
         public Teams Team { get; set; }
         public int Flags { get; set; }
+        /// <summary>
+        /// Health of the first tower
+        /// </summary>
         public int Tower1 { get; set; }
+        /// <summary>
+        /// Health of the second tower
+        /// </summary>
         public int Tower2 { get; set; }
+        /// <summary>
+        /// Health of the third tower
+        /// </summary>
         public int Tower3 { get; set; }
+        /// <summary>
+        /// Health of the one exposed ancient, if a tower was destroyed
+        /// </summary>
         public int Ancient { get; set; }
         public int GameClock { get; set; }
         public int GauntletId { get; set; }
+        /// <summary>
+        /// The deck code of the deck used by the player
+        /// </summary>
         public string DeckCode { get; set; }
 
         public List<string> Heroes { get; set; }
@@ -107,7 +122,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
 
         private async System.Threading.Tasks.Task LoadHeroUrl(string heroName, int heroIndex)
         {
-            string url = await m_client.GetCardArtUrlAsync(heroName, ArtType.Mini);
+            string url = await m_client.GetCardArtUrlAsync(heroName, ArtType.Ingame);
             if (string.IsNullOrEmpty(url))
             {
                 Console.WriteLine($"Cannot find URL for '{heroName}'");
