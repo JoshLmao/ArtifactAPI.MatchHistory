@@ -118,6 +118,8 @@
     <Content Include="getMatchData.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\ancient.png" />
+    <Resource Include="Images\ancient_destroyed.png" />
     <Resource Include="Images\tower_destroyed.png" />
     <Resource Include="Images\favicon.png" />
     <Resource Include="Images\tower.png" />
