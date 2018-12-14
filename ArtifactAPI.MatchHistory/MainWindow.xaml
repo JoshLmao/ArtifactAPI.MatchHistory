@@ -7,8 +7,8 @@
         xmlns:converters="clr-namespace:ArtifactAPI.MatchHistory.Converters"
         mc:Ignorable="d"
         Title="ArtifactAPI - Artifact Match History" 
-        MinHeight="450"
-        MinWidth="800"
+        MinHeight="450" MinWidth="800"
+        Height="500" Width="800"
         Icon="/Images/favicon.png" Background="#FF2E2E2E"
         TextElement.Foreground="White">
     <!--Created by JoshLmao-->
@@ -18,6 +18,7 @@
         <converters:TowerHealthToImageConverter x:Key="th2ic"/>
         <converters:FlagToVisibilityConverter x:Key="f2vc"/>
         <converters:SecondsToTimeFormatSeconds x:Key="s2tfc"/>
+        <converters:ModeToVisibilityConverter x:Key="m2vc" />
     </Window.Resources>
     <Grid Margin="5">
         <Grid Name="c_getHistory" Visibility="Hidden">
@@ -140,7 +141,7 @@
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0"> 
                                                         <TextBlock Text="Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
                                                         <TextBlock Text="{Binding GameClock, Converter={StaticResource s2tfc}}" VerticalAlignment="Center"/>
                                                     </StackPanel>

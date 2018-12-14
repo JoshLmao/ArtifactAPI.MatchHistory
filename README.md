@@ -17,9 +17,12 @@ Thanks to [Bongikairu](https://github.com/bongikairu/illuminate) for originally 
 
 1. Open [this link](https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers) to view your current Artifact game history
 2. Type **"javascript:"** into your url and paste the code inside the box
+
+![2_Img](/repo_assets/2.jpg)
+
 3. Once complete, copy the text from inside the text box and paste it inside the application, like shown below
 
-![PasteHereImg](https://i.imgur.com/UfFFku8.png)
+![3_Img](/repo_assets/3.jpg)
 
 
 # Note
