@@ -20,3 +20,9 @@ Thanks to [Bongikairu](https://github.com/bongikairu/illuminate) for originally 
 3. Once complete, copy the text from inside the text box and paste it inside the application, like shown below
 
 ![PasteHereImg](https://i.imgur.com/UfFFku8.png)
+
+
+# Note
+
+On the [Game History page](https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers), there are muliple values for the same game, with the only changing value being the deck code. 
+Also, the deck code isn't correct and it seems it's Valve's problem. [Info](https://twitter.com/JoshLmao/status/1072991524542132231)

@@ -17,6 +17,7 @@
         <converters:TimeToDisplayConverter x:Key="t2dc"/>
         <converters:TowerHealthToImageConverter x:Key="th2ic"/>
         <converters:FlagToVisibilityConverter x:Key="f2vc"/>
+        <converters:SecondsToTimeFormatSeconds x:Key="s2tfc"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Name="c_getHistory" Visibility="Hidden">
@@ -111,9 +112,13 @@
                                                     <TextBlock Text="Surrendered" Padding="5,1" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                 </StackPanel>
                                                 <!--Player Id-->
-                                                <TextBlock Text="{Binding AccountId}" Padding="5,3" VerticalAlignment="Center"/>
+                                                <StackPanel VerticalAlignment="Center" Margin="3,0">
+                                                    <TextBlock Text="{Binding AccountId}" />
+                                                    <TextBlock Text="{Binding StartTime}" VerticalAlignment="Center"/>
+                                                </StackPanel>
                                                 <!--Details-->
-                                                <StackPanel VerticalAlignment="Center">
+                                                <!--First Set-->
+                                                <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
                                                     <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
                                                         <TextBlock Text="Team:" Margin="0,0,3,0"/>
                                                         <TextBlock Text="{Binding Team}"/>
@@ -123,13 +128,24 @@
                                                         <TextBlock Text="{Binding Duration, Converter={StaticResource t2dc}}"/>
                                                     </StackPanel>
                                                 </StackPanel>
-                                                <StackPanel VerticalAlignment="Center">
+                                                <!--Second Set-->
+                                                <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
                                                     <StackPanel Orientation="Horizontal" Margin="3,0">
                                                         <TextBlock Text="Outcome:" VerticalAlignment="Center" Margin="0,0,3,0"/>
                                                         <TextBlock Text="{Binding MatchOutcome}" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
                                                         <TextBlock Text="Total Turns:" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding Turns}"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                        <TextBlock Text="Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                                        <TextBlock Text="{Binding GameClock, Converter={StaticResource s2tfc}}" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
+                                                        <TextBlock Text="Total Rounds:" Margin="0,0,3,0"/>
                                                         <TextBlock Text="{Binding Turns}"/>
                                                     </StackPanel>
                                                 </StackPanel>
@@ -144,19 +160,19 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower1, Converter={StaticResource th2ic}}" Height="20"/>
+                                                    <Image Source="{Binding Tower1, Converter={StaticResource th2ic}}" Height="35"/>
                                                     <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center" Width="15"/>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower2, Converter={StaticResource th2ic}}" Height="20"/>
+                                                    <Image Source="{Binding Tower2, Converter={StaticResource th2ic}}" Height="35"/>
                                                     <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center" Width="15"/>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower3, Converter={StaticResource th2ic}}" Height="20" />
+                                                    <Image Source="{Binding Tower3, Converter={StaticResource th2ic}}" Height="35" />
                                                     <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center" Width="15"/>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="5,0,2,0">
-                                                    <Image Source="{Binding Ancient, Converter={StaticResource th2ic}, ConverterParameter=1}" Height="20" />
+                                                    <Image Source="{Binding Ancient, Converter={StaticResource th2ic}, ConverterParameter=1}" Height="35" />
                                                     <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center" Width="15"/>
                                                 </StackPanel>
                                             </Grid>

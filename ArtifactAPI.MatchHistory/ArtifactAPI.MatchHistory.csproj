@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\FlagToVisibilityConverter.cs" />
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
+    <Compile Include="Converters\SecondsToTimeFormatSeconds.cs" />
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
     <Compile Include="Converters\TowerHealthToImageConverter.cs" />
     <Compile Include="Dtos\Match.cs" />

@@ -30,6 +30,10 @@ namespace ArtifactAPI.MatchHistory.Converters
                 full += $"{duration.Seconds}s";
             }
 
+            //If time is 0, display "0s"
+            if (string.IsNullOrEmpty(full))
+                full += duration.Seconds + "s";
+
             return full;
         }
 

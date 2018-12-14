@@ -13,7 +13,8 @@ namespace ArtifactAPI.MatchHistory
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ArtifactClient m_client;
+        private ArtifactClient m_client = null;
+        private List<Match> m_matches = null;
 
         public MainWindow()
         {
@@ -89,6 +90,8 @@ namespace ArtifactAPI.MatchHistory
 
         private void PopulateGameHistory(List<Match> allMatches)
         {
+            m_matches = allMatches;
+
             if (allMatches == null)
                 return;
 

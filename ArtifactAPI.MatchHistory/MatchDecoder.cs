@@ -133,6 +133,8 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 22)
                         {
+                            //NOTE: Deck code currently isn't the correct deck code the player used in game
+                            //More info in the ReadMe.md
                             m.DeckCode = properties[i];
                         }
                         else
@@ -141,6 +143,8 @@ namespace ArtifactAPI.MatchHistory
                         }
                     }
 
+                    //Only add one instance of the game Id to the list.
+                    //Currently an issue with duplicate games in the history (Check ReadMe.md)
                     if (!matches.Exists(x => x.MatchId == m.MatchId))
                     {
                         matches.Add(m);
