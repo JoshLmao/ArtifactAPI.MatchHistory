@@ -2,17 +2,11 @@
 using ArtifactAPI.MatchHistory.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArtifactAPI.MatchHistory
 {
     public class MatchDecoder
     {
-        /*Example
-        /* 4971552-JoshLmao.我是智障-8-0:13:33-211-0-7-2018-12-04 13:43:58 GMT-0-1-0-0-0-16-8-0-Luna-Ogre Magi-Prellex-Zeus-Crystal Maiden-0-ADCJfcAPrgCCUOMHnhdgqndAUiZTE6nAUSWj3ABdAJZXw__-,
-         */
         const char PROPERTY_SEPARATOR = '|';
         const char MATCH_SEPARATOR = ',';
 
