@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
             <Grid>
                 <StackPanel>
-                    <TextBlock Text="GameHistory Instructions:" FontSize="20"/>
+                    <TextBlock Text="Match History Instructions:" FontSize="20"/>
                     <TextBlock Text="How to use:" FontSize="15"/>
                     <StackPanel Orientation="Horizontal" TextElement.FontSize="13">
                         <TextBlock Text="1. Open this link to view all of your current match data stored by Valve"/>
