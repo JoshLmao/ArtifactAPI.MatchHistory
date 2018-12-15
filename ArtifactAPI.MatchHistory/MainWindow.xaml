@@ -21,14 +21,21 @@
         <converters:ModeToVisibilityConverter x:Key="m2vc" />
     </Window.Resources>
     <Grid Margin="5">
-        <Grid Name="c_getHistory" Visibility="Hidden">
+        <Grid Name="c_getHistory" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid>
                 <StackPanel>
-                    <TextBlock Text="Match History Instructions:" FontSize="20"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Match History Instructions:" FontSize="20"/>
+                        <TextBlock VerticalAlignment="Bottom" Margin="10,0">
+                                <Hyperlink RequestNavigate="OnRequestOpenUri" NavigateUri="https://github.com/JoshLmao/ArtifactAPI.MatchHistory">
+                                    github.com/JoshLmao/ArtifactAPI.MatchHistory
+                                </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
                     <TextBlock Text="How to use:" FontSize="15"/>
                     <StackPanel Orientation="Horizontal" TextElement.FontSize="13">
                         <TextBlock Text="1. Open this link to view all of your current match data stored by Valve"/>
@@ -53,7 +60,7 @@
         </Grid>
 
         <!--Match Container-->
-        <Grid Name="c_matchHistory" Visibility="Visible">
+        <Grid Name="c_matchHistory" Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -68,7 +75,7 @@
                     <Grid>
                         <TextBlock Name="tb_title" Text="Game History" FontSize="20"/>
                         <Button Click="OnResetView" HorizontalAlignment="Right">
-                            <TextBlock Text="Reset" Margin="5,3"/>
+                        <TextBlock Text="Reset" Margin="5,3"/>
                         </Button>
                     </Grid>
                     <Grid Grid.Row="1">
