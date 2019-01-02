@@ -51,7 +51,17 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 2)
                         {
-                            m.MatchMode = (MatchMode)int.Parse(properties[i]);
+                            int mode = int.Parse(properties[i]);
+                            bool isDefined = Enum.IsDefined(typeof(MatchMode), mode);
+                            if (isDefined)
+                            {
+                                m.MatchMode = (MatchMode)mode;
+                            }
+                            else
+                            {
+                                Logger.OutputError($"Undefined MatchMode of value '{mode}' - '{properties[i]}'");
+                                m.MatchMode = MatchMode.Unknown;
+                            }
                         }
                         else if (i == 3)
                         {
@@ -63,7 +73,17 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 5)
                         {
-                            m.MatchOutcome = (Outcome)int.Parse(properties[i]);
+                            int outcome = int.Parse(properties[i]);
+                            bool isDefined = Enum.IsDefined(typeof(Outcome), outcome);
+                            if (isDefined)
+                            {
+                                m.MatchOutcome = (Outcome)outcome;
+                            }
+                            else
+                            {
+                                Logger.OutputError($"Undefined MatchOutcome of value '{outcome}' - '{properties[i]}'");
+                                m.MatchOutcome = Outcome.Unknown;
+                            }
                         }
                         else if (i == 6)
                         {

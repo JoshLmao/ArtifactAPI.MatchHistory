@@ -13,6 +13,8 @@ namespace ArtifactAPI.MatchHistory.Converters
             Outcome outcome = (Outcome)value;
             switch (outcome)
             {
+                case Outcome.Unknown:
+                    return Brushes.Blue;
                 case Outcome.Loss:
                     return Brushes.DarkRed;
                 case Outcome.Victory:
