@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square.svg"/>
   </a>
   <a href="https://github.com/JoshLmao/ArtifactAPI.NET/releases">
-    <img src="https://img.shields.io/badge/release-v0.1-orange.svg?style=flat-square.svg"/>
+    <img src="https://img.shields.io/badge/release-v0.2-orange.svg?style=flat-square.svg"/>
   </a>
 </p>
 
@@ -29,3 +29,9 @@ Thanks to [Bongikairu](https://github.com/bongikairu/illuminate) for originally 
 
 On the [Game History page](https://steamcommunity.com/my/gcpd/583950/?category=Games&amp;tab=MatchPlayers), there are muliple values for the same game, with the only changing value being the deck code. 
 Also, the deck code isn't correct and it seems it's Valve's problem. [Info](https://twitter.com/JoshLmao/status/1072991524542132231)
+
+## Donations
+
+If you want to support my open source work, please consider buying me a coffee (or two! ;D)
+
+[![Donate Link](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ijoshlmao)
