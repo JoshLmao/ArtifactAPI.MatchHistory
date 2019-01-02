@@ -19,6 +19,8 @@
         <converters:FlagToVisibilityConverter x:Key="f2vc"/>
         <converters:SecondsToTimeFormatSeconds x:Key="s2tfc"/>
         <converters:ModeToVisibilityConverter x:Key="m2vc" />
+        <converters:GauntletToDisplayNameConverter x:Key="g2dc"/>
+        <converters:GauntletTypeToVisibilityConverter x:Key="gt2vc"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Name="c_getHistory" Visibility="Visible">
@@ -46,7 +48,10 @@
                         </TextBlock>
                     </StackPanel>
                     <StackPanel TextElement.FontSize="13">
-                        <TextBlock Text="2. In URL bar, Type 'javascript:' and paste the following script afterward, then press Enter"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                            <TextBlock Text="2. In URL bar, " />
+                            <TextBlock Text="Type 'javascript:' and paste the following script afterward, then press Enter" Foreground="OrangeRed"/>
+                        </StackPanel>
                         <TextBox Name="tb_javascriptCopy" Height="60" Margin="10,0" ScrollViewer.VerticalScrollBarVisibility="Visible" FontSize="11"/>
                     </StackPanel>
                 </StackPanel>
@@ -144,8 +149,8 @@
                                         <Grid Background="#FF131312">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="3*"/>
-                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="auto"/>
                                             </Grid.ColumnDefinitions>
                                             <!--Left side-->
                                             <StackPanel Orientation="Horizontal">
@@ -154,10 +159,11 @@
                                                 <StackPanel VerticalAlignment="Center">
                                                     <TextBlock Text="{Binding MatchId}" Padding="5,1"/>
                                                     <TextBlock Text="{Binding MatchMode}" Padding="5,1"/>
-                                                    <TextBlock Text="Surrendered" Padding="5,1" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
+                                                    <TextBlock Padding="5,1" Text="{Binding GauntletType, Converter={StaticResource g2dc}}" Visibility="{Binding GauntletType, Converter={StaticResource gt2vc}}"/>
                                                 </StackPanel>
                                                 <!--Player Id-->
                                                 <StackPanel VerticalAlignment="Center" Margin="3,0">
+                                                    <TextBlock Text="Surrendered" Padding="5,1" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                     <TextBlock Text="{Binding AccountId}" />
                                                     <TextBlock Text="{Binding StartTime}" VerticalAlignment="Center"/>
                                                 </StackPanel>
@@ -197,7 +203,7 @@
                                             </StackPanel>
 
                                             <!--Tower/Ancient Health-->
-                                            <Grid Grid.Column="1" HorizontalAlignment="Center">
+                                            <Grid Grid.Column="1" HorizontalAlignment="Center" Margin="10,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -223,7 +229,7 @@
                                             </Grid>
                                             
                                             <!--Heroes & Icons-->
-                                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10,0">
                                                 <!--<TextBlock Text="{Binding DeckCode}"/>-->
                                                 <ItemsControl ItemsSource="{Binding Heroes}">
                                                     <ItemsControl.ItemsPanel>

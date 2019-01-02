@@ -66,12 +66,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FlagToVisibilityConverter.cs" />
+    <Compile Include="Converters\GauntletToDisplayNameConverter.cs" />
+    <Compile Include="Converters\GauntletTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\ModeToVisibilityConverter.cs" />
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
     <Compile Include="Converters\SecondsToTimeFormatSeconds.cs" />
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
     <Compile Include="Converters\TowerHealthToImageConverter.cs" />
     <Compile Include="Dtos\Match.cs" />
+    <Compile Include="Enums\GauntletType.cs" />
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
     <Compile Include="Enums\Teams.cs" />

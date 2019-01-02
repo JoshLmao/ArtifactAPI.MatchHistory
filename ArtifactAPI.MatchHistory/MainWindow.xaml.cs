@@ -112,25 +112,25 @@ namespace ArtifactAPI.MatchHistory
             double totalMMWR = GetWinRate(Enums.MatchMode.Matchmaking, allMatches);
             tb_mmwr.Text = $"{Math.Round(totalMMWR, 1)}%";
 
-            double totalCCWM = GetWinRate(Enums.MatchMode.CasualConstructed, allMatches);
-            tb_ccwr.Text = $"{Math.Round(totalCCWM, 1)}%";
-
-            double totalCPDWR = GetWinRate(Enums.MatchMode.CasualPhantomDraft, allMatches);
-            tb_cpdwr.Text = $"{Math.Round(totalCPDWR, 1)}%";
-
-            double totalecWM = GetWinRate(Enums.MatchMode.ExpertConstructed, allMatches);
-            tb_ecwr.Text = $"{Math.Round(totalecWM, 1)}%";
-
-            double totalpdWM = GetWinRate(Enums.MatchMode.PhantomDraft, allMatches);
-            tb_pdwr.Text = $"{Math.Round(totalpdWM, 1)}%";
-
-            double totalkdWM = GetWinRate(Enums.MatchMode.KeeperDraft, allMatches);
-            tb_kdwr.Text = $"{Math.Round(totalkdWM, 1)}%";
-
             double totalBMWM = GetWinRate(Enums.MatchMode.Bot_Match, allMatches);
             tb_bmwr.Text = $"{Math.Round(totalBMWM, 1)}%";
 
-            double totalRMWM = GetWinRate(Enums.MatchMode.RandomMode, allMatches);
+            double totalCCWM = GetWinRate(Enums.GauntletType.ConstructedExpert, allMatches);
+            tb_ccwr.Text = $"{Math.Round(totalCCWM, 1)}%";
+
+            double totalCPDWR = GetWinRate(Enums.GauntletType.CasualPhantomDraft, allMatches);
+            tb_cpdwr.Text = $"{Math.Round(totalCPDWR, 1)}%";
+
+            double totalecWM = GetWinRate(Enums.GauntletType.ConstructedExpert, allMatches);
+            tb_ecwr.Text = $"{Math.Round(totalecWM, 1)}%";
+
+            double totalpdWM = GetWinRate(Enums.GauntletType.PhantomDraftExpert, allMatches);
+            tb_pdwr.Text = $"{Math.Round(totalpdWM, 1)}%";
+
+            double totalkdWM = GetWinRate(Enums.GauntletType.KeeperDraftExpert, allMatches);
+            tb_kdwr.Text = $"{Math.Round(totalkdWM, 1)}%";
+
+            double totalRMWM = GetWinRate(Enums.GauntletType.RandomMeta, allMatches);
             tb_rmwr.Text = $"{Math.Round(totalRMWM, 1)}%";
 
             ic_gameHistory.ItemsSource = allMatches;
@@ -139,6 +139,14 @@ namespace ArtifactAPI.MatchHistory
         private double GetWinRate(Enums.MatchMode mode, List<Match> allMatches)
         {
             int wonMatchesCount = allMatches.Sum(x => x.MatchMode == mode ? 1 : 0);
+            int total = allMatches.Count;
+
+            return ((double)wonMatchesCount / (double)total) * 100;
+        }
+
+        private double GetWinRate(Enums.GauntletType gauntedMode, List<Match> allMatches)
+        {
+            int wonMatchesCount = allMatches.Sum(x => x.GauntletType == gauntedMode ? 1 : 0);
             int total = allMatches.Count;
 
             return ((double)wonMatchesCount / (double)total) * 100;

@@ -123,7 +123,7 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 21)
                         {
-                            m.GauntletId = int.Parse(properties[i]);
+                            m.GauntletType = (GauntletType)int.Parse(properties[i]);
                         }
                         else if (i == 22)
                         {

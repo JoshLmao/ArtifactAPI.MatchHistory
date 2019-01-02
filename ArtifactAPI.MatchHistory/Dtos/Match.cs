@@ -50,7 +50,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
         /// </summary>
         public int Ancient { get; set; }
         public int GameClock { get; set; }
-        public int GauntletId { get; set; }
+        public GauntletType GauntletType { get; set; }
         /// <summary>
         /// The deck code of the deck used by the player
         /// </summary>
