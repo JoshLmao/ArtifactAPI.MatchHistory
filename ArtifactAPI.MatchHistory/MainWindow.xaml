@@ -6,7 +6,7 @@
         xmlns:dtos="clr-namespace:ArtifactAPI.MatchHistory.Dtos"
         xmlns:converters="clr-namespace:ArtifactAPI.MatchHistory.Converters"
         mc:Ignorable="d"
-        Title="ArtifactAPI - Artifact Match History" 
+        Title="ArtifactAPI - Artifact Match History v0.2"
         MinHeight="450" MinWidth="800"
         Height="500" Width="800"
         Icon="/Images/favicon.png" Background="#FF2E2E2E"
@@ -23,7 +23,7 @@
         <converters:GauntletTypeToVisibilityConverter x:Key="gt2vc"/>
     </Window.Resources>
     <Grid Margin="5">
-        <Grid Name="c_getHistory" Visibility="Visible">
+        <Grid Name="c_getHistory" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition />
@@ -65,79 +65,95 @@
         </Grid>
 
         <!--Match Container-->
-        <Grid Name="c_matchHistory" Visibility="Hidden">
+        <Grid Name="c_matchHistory" Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition />
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <!--Total Stats-->
                 <Grid Margin="5,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition />
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Name="tb_title" Text="Game History" FontSize="24"/>
-                        <Button Click="OnResetView" HorizontalAlignment="Right">
-                        <TextBlock Text="Reset" Margin="5,3"/>
-                        </Button>
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="0,0,0,5" TextElement.FontSize="15">
-                        <StackPanel Orientation="Horizontal">
-                            <DockPanel>
-                                <TextBlock Text="Total Matches:"/>
-                                <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="10,0,5,0">
-                                <TextBlock Text="Total Wins/Draws/Losses:"/>
-                                <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
-                            </DockPanel>
+                        <StackPanel Orientation="Horizontal" TextElement.FontSize="24">
+                            <TextBlock Name="tb_title" Text="Game History - " FontWeight="SemiBold"/>
+                            <TextBlock Name="tb_playerName" FontWeight="SemiBold"/>
                         </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="2" Margin="0,0,0,5" TextElement.FontSize="15">
-                        <WrapPanel Orientation="Horizontal">
-                            <DockPanel>
-                                <TextBlock Text="Matchmaking:"/>
-                                <TextBlock Name="tb_mmwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Meta Mode:"/>
-                                <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Constructed (c):"/>
-                                <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Phantom Draft (c):"/>
-                                <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Constructed (e):"/>
-                                <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Phantom Draft (e):"/>
-                                <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Keeper's Draft (e):"/>
-                                <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                            <DockPanel Margin="5,0">
-                                <TextBlock Text="Bot Match:"/>
-                                <TextBlock Name="tb_bmwr" Text="100%" Padding="5,0"/>
-                            </DockPanel>
-                        </WrapPanel>
+                        <Button Click="OnResetView" HorizontalAlignment="Right">
+                            <TextBlock Text="Reset Data" Margin="5,3"/>
+                        </Button>
                     </Grid>
                 </Grid>
 
                 <!--Data-->
-                <Grid Grid.Row="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
-                        <ItemsControl Name="ic_gameHistory">
+                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                    
+                        <Grid Grid.Row="0" Margin="5,0,0,5" TextElement.FontSize="15">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <DockPanel>
+                                    <TextBlock Text="Total Matches:"/>
+                                    <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="10,0,5,0">
+                                    <TextBlock Text="Total Wins/Draws/Losses:"/>
+                                    <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
+                                </DockPanel>
+                            </StackPanel>
+                        </Grid>
+                        <StackPanel Grid.Row="1" Margin="5,0,0,5" TextElement.FontSize="15">
+                            <!--Casual Gauntlet Modes-->
+                            <TextBlock Text="Causal Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
+                            <WrapPanel Orientation="Horizontal" Margin="0,0,0,3">
+                                <DockPanel>
+                                    <TextBlock Text="Matchmaking:"/>
+                                    <TextBlock Name="tb_mmwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="5,0">
+                                    <TextBlock Text="Bot Match:"/>
+                                    <TextBlock Name="tb_bmwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+
+                                <DockPanel Margin="15,0,5,0">
+                                    <TextBlock Text="Meta Mode:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
+                                    <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="0,0,5,0">
+                                    <TextBlock Text="Constructed:"/>
+                                    <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="5,0">
+                                    <TextBlock Text="Phantom Draft:"/>
+                                    <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                            </WrapPanel>
+
+                            <Separator/>
+
+                            <!--Expert Gauntlet Modes-->
+                            <TextBlock Text="Expert Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
+                            <WrapPanel Margin="0,0,0,3">
+                                <DockPanel Margin="0,0">
+                                    <TextBlock Text="Constructed:"/>
+                                    <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="5,0">
+                                    <TextBlock Text="Phantom Draft:"/>
+                                    <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="5,0">
+                                    <TextBlock Text="Keeper's Draft:"/>
+                                    <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                            </WrapPanel>
+                        </StackPanel>
+                        
+                        <!--Matches-->
+                        <ItemsControl Name="ic_gameHistory" Grid.Row="2">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel />
@@ -163,9 +179,9 @@
                                                 </StackPanel>
                                                 <!--Player Id-->
                                                 <StackPanel VerticalAlignment="Center" Margin="3,0">
-                                                    <TextBlock Text="Surrendered" Padding="5,1" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                     <TextBlock Text="{Binding AccountId}" />
                                                     <TextBlock Text="{Binding StartTime}" VerticalAlignment="Center"/>
+                                                    <TextBlock Text="Surrendered" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
                                                 </StackPanel>
                                                 <!--Details-->
                                                 <!--First Set-->
@@ -191,8 +207,8 @@
                                                     </StackPanel>
                                                 </StackPanel>
                                                 <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0"> 
-                                                        <TextBlock Text="Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                        <TextBlock Text="Remaining Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
                                                         <TextBlock Text="{Binding GameClock, Converter={StaticResource s2tfc}}" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
@@ -227,7 +243,7 @@
                                                     <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center" Width="15"/>
                                                 </StackPanel>
                                             </Grid>
-                                            
+
                                             <!--Heroes & Icons-->
                                             <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10,0">
                                                 <!--<TextBlock Text="{Binding DeckCode}"/>-->
@@ -249,8 +265,8 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </ScrollViewer>
-                </Grid>
+                    </Grid>
+                </ScrollViewer>
             </Grid>
         </Grid>
     </Grid>

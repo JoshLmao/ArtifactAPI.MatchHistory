@@ -54,9 +54,10 @@ namespace ArtifactAPI.MatchHistory
         private void OnResetView(object sender, RoutedEventArgs e)
         {
             SetView(true);
-            t_invalidCode.Visibility = Visibility.Collapsed;
             ic_gameHistory.ItemsSource = null;
             outputBox.Text = null;
+
+            t_invalidCode.Visibility = Visibility.Collapsed;
         }
 
         private void SetView(bool isStartView)
@@ -87,6 +88,7 @@ namespace ArtifactAPI.MatchHistory
             {
                 t_invalidCode.Visibility = Visibility.Collapsed;
                 PopulateGameHistory(matches);
+                tb_playerName.Text = matches.FirstOrDefault(x => x != null).AccountId;
             }
         }
 
