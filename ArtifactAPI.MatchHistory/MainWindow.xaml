@@ -71,6 +71,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition />
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Grid>
                         <TextBlock Name="tb_title" Text="Game History" FontSize="20"/>
@@ -87,6 +88,42 @@
                             <DockPanel Margin="5,0">
                                 <TextBlock Text="Wins/Draws/Losses:"/>
                                 <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <StackPanel Orientation="Horizontal">
+                            <DockPanel>
+                                <TextBlock Text="Matchmaking:"/>
+                                <TextBlock Name="tb_mmwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="CasualConstructed:"/>
+                                <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Cas. Phantom Draft:"/>
+                                <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Expert Constructed:"/>
+                                <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Phantom Draft:"/>
+                                <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Keeper's Draft:"/>
+                                <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Bot Match:"/>
+                                <TextBlock Name="tb_bmwr" Text="100%" Padding="5,0"/>
+                            </DockPanel>
+                            <DockPanel Margin="5,0">
+                                <TextBlock Text="Random Mode:"/>
+                                <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
                             </DockPanel>
                         </StackPanel>
                     </Grid>
