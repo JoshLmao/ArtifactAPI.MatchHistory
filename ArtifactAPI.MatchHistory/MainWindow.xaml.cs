@@ -54,6 +54,7 @@ namespace ArtifactAPI.MatchHistory
         private void OnResetView(object sender, RoutedEventArgs e)
         {
             SetView(true);
+            t_invalidCode.Visibility = Visibility.Collapsed;
             ic_gameHistory.ItemsSource = null;
             outputBox.Text = null;
         }
@@ -109,47 +110,77 @@ namespace ArtifactAPI.MatchHistory
             int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
             tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss}";
 
-            double totalMMWR = GetWinRate(Enums.MatchMode.Matchmaking, allMatches);
-            tb_mmwr.Text = $"{Math.Round(totalMMWR, 1)}%";
+            
+            SetRate(Enums.MatchMode.Bot_Match, allMatches, tb_bmwr);
 
-            double totalBMWM = GetWinRate(Enums.MatchMode.Bot_Match, allMatches);
-            tb_bmwr.Text = $"{Math.Round(totalBMWM, 1)}%";
-
-            double totalCCWM = GetWinRate(Enums.GauntletType.ConstructedExpert, allMatches);
-            tb_ccwr.Text = $"{Math.Round(totalCCWM, 1)}%";
-
-            double totalCPDWR = GetWinRate(Enums.GauntletType.CasualPhantomDraft, allMatches);
-            tb_cpdwr.Text = $"{Math.Round(totalCPDWR, 1)}%";
-
-            double totalecWM = GetWinRate(Enums.GauntletType.ConstructedExpert, allMatches);
-            tb_ecwr.Text = $"{Math.Round(totalecWM, 1)}%";
-
-            double totalpdWM = GetWinRate(Enums.GauntletType.PhantomDraftExpert, allMatches);
-            tb_pdwr.Text = $"{Math.Round(totalpdWM, 1)}%";
-
-            double totalkdWM = GetWinRate(Enums.GauntletType.KeeperDraftExpert, allMatches);
-            tb_kdwr.Text = $"{Math.Round(totalkdWM, 1)}%";
-
-            double totalRMWM = GetWinRate(Enums.GauntletType.RandomMeta, allMatches);
-            tb_rmwr.Text = $"{Math.Round(totalRMWM, 1)}%";
+            //Featured tab Gauntlet mode
+            SetRate(Enums.GauntletType.RandomMeta, allMatches, tb_rmwr);
+            
+            //Casual modes
+            SetRate(Enums.GauntletType.Constructed, allMatches, tb_ccwr);
+            SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
+            
+            //'Ranked' modes
+            SetRate(Enums.GauntletType.ConstructedExpert, allMatches, tb_ecwr);
+            SetRate(Enums.GauntletType.PhantomDraftExpert, allMatches, tb_pdwr);
+            SetRate(Enums.GauntletType.KeeperDraftExpert, allMatches, tb_kdwr);
 
             ic_gameHistory.ItemsSource = allMatches;
         }
 
-        private double GetWinRate(Enums.MatchMode mode, List<Match> allMatches)
+        private void SetRate(Enums.MatchMode mode, List<Match> allMatches, TextBlock tb)
         {
-            int wonMatchesCount = allMatches.Sum(x => x.MatchMode == mode ? 1 : 0);
-            int total = allMatches.Count;
-
-            return ((double)wonMatchesCount / (double)total) * 100;
+            MatchRate rate = GetWinRate(mode, allMatches);
+            double mmPercent = GetPercent(rate.Wins, rate.Total);
+            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Draws}/{rate.Losses})";
         }
 
-        private double GetWinRate(Enums.GauntletType gauntedMode, List<Match> allMatches)
+        private void SetRate(Enums.GauntletType gauntletType, List<Match> allMatches, TextBlock tb)
         {
-            int wonMatchesCount = allMatches.Sum(x => x.GauntletType == gauntedMode ? 1 : 0);
-            int total = allMatches.Count;
+            MatchRate rate = GetWinRate(gauntletType, allMatches);
+            double mmPercent = GetPercent(rate.Wins, rate.Total);
+            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Draws}/{rate.Losses})";
+        }
 
-            return ((double)wonMatchesCount / (double)total) * 100;
+        private MatchRate GetWinRate(Enums.MatchMode mode, List<Match> allMatches)
+        {
+            int wonCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
+            int drawCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
+            int lossCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
+            int total = allMatches.Sum(x => x.MatchMode == mode ? 1 : 0);
+
+            return new MatchRate()
+            {
+                Wins = wonCount,
+                Draws = drawCount,
+                Losses = lossCount,
+                Total = total,
+            };
+        }
+
+        private MatchRate GetWinRate(Enums.GauntletType gauntedMode, List<Match> allMatches)
+        {
+            int wonCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
+            int drawCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
+            int lossCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
+            int total = allMatches.Sum(x => x.GauntletType == gauntedMode ? 1 : 0);
+
+            return new MatchRate()
+            {
+                Wins = wonCount,
+                Draws = drawCount,
+                Losses = lossCount,
+                Total = total,
+            };
+        }
+
+        private double GetPercent(double amount, double total, int roundAmount = 1)
+        {
+            double percent = (amount / total) * 100;
+            if (double.IsNaN(percent))
+                return 0;
+            else
+                return Math.Round(percent, roundAmount);
         }
     }
 }

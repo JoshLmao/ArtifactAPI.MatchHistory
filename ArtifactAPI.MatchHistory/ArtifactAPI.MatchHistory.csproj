@@ -74,6 +74,7 @@
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
     <Compile Include="Converters\TowerHealthToImageConverter.cs" />
     <Compile Include="Dtos\Match.cs" />
+    <Compile Include="Dtos\WinRate.cs" />
     <Compile Include="Enums\GauntletType.cs" />
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
