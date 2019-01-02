@@ -112,16 +112,16 @@ namespace ArtifactAPI.MatchHistory
             int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
             tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss}";
 
-            
             SetRate(Enums.MatchMode.Bot_Match, allMatches, tb_bmwr);
 
             //Featured tab Gauntlet mode
             SetRate(Enums.GauntletType.RandomMeta, allMatches, tb_rmwr);
             
             //Casual modes
-            SetRate(Enums.GauntletType.Constructed, allMatches, tb_ccwr);
             SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
-            
+            SetRate(Enums.GauntletType.Constructed, allMatches, tb_ccwr);
+            SetRate(Enums.GauntletType.CasualPhantomDraft, allMatches, tb_cpdwr);
+
             //'Ranked' modes
             SetRate(Enums.GauntletType.ConstructedExpert, allMatches, tb_ecwr);
             SetRate(Enums.GauntletType.PhantomDraftExpert, allMatches, tb_pdwr);
