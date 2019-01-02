@@ -105,12 +105,17 @@ namespace ArtifactAPI.MatchHistory
             SetView(false);
 
             //Set total stats
-            tb_totalMatches.Text = $"{allMatches.Count} matches";
+            int totalWithoutBots = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match);
+            tb_totalMatches.Text = $"{allMatches.Count} matches ({totalWithoutBots} w/o bots)";
 
             int totalWins = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
             int totalLoss = allMatches.Sum(x => (x.MatchOutcome == Enums.Outcome.Loss) ? 1 : 0);
             int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
-            tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss}";
+
+            int nb_totalWins = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Victory);
+            int nb_totalLoss = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Loss);
+            int nb_totalDraws = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Draw);
+            tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss} ({nb_totalWins}/{nb_totalDraws}/{nb_totalLoss})";
 
             SetRate(Enums.MatchMode.Bot_Match, allMatches, tb_bmwr);
 

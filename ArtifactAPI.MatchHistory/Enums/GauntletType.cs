@@ -16,15 +16,15 @@
         /// <summary>
         /// Constructed, Expert - Costs 1 ticket, pick a deck, play until 5 mins or 2 losses
         /// </summary>
-        ConstructedExpert = 6,     //ToDo: Verify number
+        ConstructedExpert = 7,
         /// <summary>
         /// Phantom Draft, Expert - Cost 1 ticket, pick 60 cards, play until 5 wins or 2 losses
         /// </summary>
-        PhantomDraftExpert = 7,          //ToDo: Verify number
+        PhantomDraftExpert = 8,
         /// <summary>
         /// Keeper's Draft, Expert - Costs 2 tickets & 5 packs, create a deck and play until 5 wins or 2 losses. Keep cards you draft
         /// </summary>
-        KeeperDraftExpert = 8,           //ToDo: Verify number
+        KeeperDraftExpert = 9,
         /// <summary>
         /// Constructed, Casual - Pick a deck, play until you win 5 or lose 2
         /// </summary>
