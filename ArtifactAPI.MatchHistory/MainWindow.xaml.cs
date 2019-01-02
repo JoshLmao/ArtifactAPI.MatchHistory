@@ -17,9 +17,15 @@ namespace ArtifactAPI.MatchHistory
         private ArtifactClient m_client = null;
         private List<Match> m_matches = null;
 
+        private static string VERSION = "v0.3";
+
         public MainWindow()
         {
+            Logger.OutputInfo($"Program Start - Artifact API {VERSION}");
             InitializeComponent();
+
+            this.Title += $" {VERSION}";
+            Closed += OnProgramClosed;
 
             Loaded += OnViewLoaded;
             outputBox.TextChanged += OnOutputPasted;
@@ -30,6 +36,11 @@ namespace ArtifactAPI.MatchHistory
             m_client = new ArtifactClient();
             //Load since bug with not loading cards
             m_client.GetAllCards();
+        }
+
+        private void OnProgramClosed(object sender, EventArgs e)
+        {
+            Logger.OutputInfo("Program Closed");
         }
 
         private void OnHaveGotFocus(object sender, RoutedEventArgs e)

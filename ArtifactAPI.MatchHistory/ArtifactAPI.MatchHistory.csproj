@@ -79,6 +79,7 @@
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
     <Compile Include="Enums\Teams.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MatchDecoder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

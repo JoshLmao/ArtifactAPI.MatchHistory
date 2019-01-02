@@ -6,7 +6,7 @@
         xmlns:dtos="clr-namespace:ArtifactAPI.MatchHistory.Dtos"
         xmlns:converters="clr-namespace:ArtifactAPI.MatchHistory.Converters"
         mc:Ignorable="d"
-        Title="ArtifactAPI - Artifact Match History v0.2"
+        Title="ArtifactAPI - Artifact Match History"
         MinHeight="450" MinWidth="800"
         Height="500" Width="800"
         Icon="/Images/favicon.png" Background="#FF2E2E2E"

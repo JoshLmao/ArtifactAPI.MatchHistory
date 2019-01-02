@@ -10,6 +10,10 @@ namespace ArtifactAPI.MatchHistory
         const char PROPERTY_SEPARATOR = '|';
         const char MATCH_SEPARATOR = ',';
 
+        public MatchDecoder()
+        {
+        }
+
         public static List<Match> DecodeMatch(string s, ArtifactClient client)
         {
             if (string.IsNullOrEmpty(s))
@@ -18,10 +22,10 @@ namespace ArtifactAPI.MatchHistory
             s = RemoveFormatting(s);
 
             List<Match> matches = new List<Match>();
-            try
+            string[] matchArr = s.Split(MATCH_SEPARATOR);
+            foreach (string match in matchArr)
             {
-                string[] matchArr = s.Split(MATCH_SEPARATOR);
-                foreach (string match in matchArr)
+                try
                 {
                     if (string.IsNullOrEmpty(match))
                         continue;
@@ -33,7 +37,7 @@ namespace ArtifactAPI.MatchHistory
                     {
                         if (string.IsNullOrEmpty(properties[i]))
                         {
-                            Console.WriteLine($"Empty property at value {i}");
+                            Logger.OutputError($"Empty property at value {i}");
                             continue;
                         }
 
@@ -133,25 +137,25 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else
                         {
-                            throw new NotImplementedException("Unknown property");
+                            throw new NotImplementedException($"Unknown property - '{properties[i]}'");
                         }
                     }
 
-                    //Only add one instance of the game Id to the list.
-                    //Currently an issue with duplicate games in the history (Check ReadMe.md)
+                    ///Only add one instance of the game Id to the list.
+                    ///Currently an issue with duplicate games in the history (Check ReadMe.md)
                     if (!matches.Exists(x => x.MatchId == m.MatchId))
                     {
                         matches.Add(m);
                     }
                 }
+                catch (Exception e)
+                {
+                    Logger.OutputError($"Unable to decode pasted content - '{e.ToString()}'");
+                    return null;
+                }
+            }
 
-                return matches;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Unable to decode pasted content - '{e.ToString()}'");
-                return null;
-            }
+            return matches;
         }
 
         private static string RemoveFormatting(string s)

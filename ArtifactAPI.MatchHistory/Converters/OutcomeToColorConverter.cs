@@ -20,7 +20,10 @@ namespace ArtifactAPI.MatchHistory.Converters
                 case Outcome.Draw:
                     return Brushes.OrangeRed;
                 default:
-                    throw new NotImplementedException("Implement case");
+                    {
+                        Logger.OutputError($"Unable to Convert outcome to color - Unknown Outcome number '{value}'");
+                        throw new NotImplementedException("Implement case");
+                    }
             }
         }
 

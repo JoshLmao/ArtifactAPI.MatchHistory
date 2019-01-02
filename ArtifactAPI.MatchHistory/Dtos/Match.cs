@@ -125,7 +125,7 @@ namespace ArtifactAPI.MatchHistory.Dtos
             string url = await m_client.GetCardArtUrlAsync(heroName, ArtType.Ingame);
             if (string.IsNullOrEmpty(url))
             {
-                Console.WriteLine($"Cannot find URL for '{heroName}'");
+                Logger.OutputError($"Cannot find URL for '{heroName}'");
                 return;
             }
 
