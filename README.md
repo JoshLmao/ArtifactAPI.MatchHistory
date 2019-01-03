@@ -4,7 +4,7 @@
   <a href="https://twitter.com/JoshLmao">
     <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square.svg"/>
   </a>
-  <a href="https://github.com/JoshLmao/ArtifactAPI.NET/releases">
+  <a href="https://github.com/JoshLmao/ArtifactAPI.MatchHistory/releases">
     <img src="https://img.shields.io/badge/release-v0.3.1-green.svg?style=flat-square.svg"/>
   </a>
 </p>
