@@ -120,25 +120,24 @@ namespace ArtifactAPI.MatchHistory
             tb_totalMatches.Text = $"{allMatches.Count} matches ({totalWithoutBots} w/o bots)";
 
             int totalWins = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int totalLoss = allMatches.Sum(x => (x.MatchOutcome == Enums.Outcome.Loss) ? 1 : 0);
-            int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
+            int totalLoss = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
+            int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw || x.MatchOutcome == Enums.Outcome.Draw_ ? 1 : 0);
 
             int nb_totalWins = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Victory);
             int nb_totalLoss = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Loss);
             int nb_totalDraws = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Draw);
             tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss} ({nb_totalWins}/{nb_totalDraws}/{nb_totalLoss})";
 
+            //Modes
+            SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
+            SetRate(Enums.MatchMode.Gauntlet, allMatches, tb_gwr);
             SetRate(Enums.MatchMode.Bot_Match, allMatches, tb_bmwr);
 
-            //Featured tab Gauntlet mode
-            SetRate(Enums.GauntletType.RandomMeta, allMatches, tb_rmwr);
-            
-            //Casual modes
-            SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
             SetRate(Enums.GauntletType.Constructed, allMatches, tb_ccwr);
+            //Call to Arms event - changes seasonally?
+            SetRate(Enums.GauntletType.RandomMeta, allMatches, tb_rmwr);
             SetRate(Enums.GauntletType.CasualPhantomDraft, allMatches, tb_cpdwr);
-
-            //'Ranked' modes
+            //Expert modes 
             SetRate(Enums.GauntletType.ConstructedExpert, allMatches, tb_ecwr);
             SetRate(Enums.GauntletType.PhantomDraftExpert, allMatches, tb_pdwr);
             SetRate(Enums.GauntletType.KeeperDraftExpert, allMatches, tb_kdwr);

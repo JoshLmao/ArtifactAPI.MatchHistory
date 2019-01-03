@@ -20,6 +20,7 @@ namespace ArtifactAPI.MatchHistory.Converters
                 case Outcome.Victory:
                     return Brushes.DarkGreen;
                 case Outcome.Draw:
+                case Outcome.Draw_:
                     return Brushes.OrangeRed;
                 default:
                     {

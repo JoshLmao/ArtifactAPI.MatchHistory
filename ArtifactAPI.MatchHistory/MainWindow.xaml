@@ -107,19 +107,29 @@
                         </Grid>
                         <StackPanel Grid.Row="1" Margin="5,0,0,5" TextElement.FontSize="15">
                             <!--Casual Gauntlet Modes-->
-                            <TextBlock Text="Causal Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
+                            <TextBlock Text="Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
                             <WrapPanel Orientation="Horizontal" Margin="0,0,0,3">
                                 <DockPanel>
                                     <TextBlock Text="Matchmaking:"/>
                                     <TextBlock Name="tb_mmwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
                                 <DockPanel Margin="5,0">
+                                    <TextBlock Text="Gauntlet's:"/>
+                                    <TextBlock Name="tb_gwr" Text="100%" Padding="5,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="5,0">
                                     <TextBlock Text="Bot Match:"/>
                                     <TextBlock Name="tb_bmwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
+                            </WrapPanel>
 
-                                <DockPanel Margin="15,0,5,0">
-                                    <TextBlock Text="Meta Mode:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
+                            <Separator/>
+
+                            <!--Gauntlet Modes-->
+                            <TextBlock Text="Gauntlet Types:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
+                            <WrapPanel Margin="0,0,0,3">
+                                <DockPanel Margin="0,0,5,0">
+                                    <TextBlock Text="Call to Arms:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
                                     <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
                                 <DockPanel Margin="0,0,5,0">
@@ -130,19 +140,12 @@
                                     <TextBlock Text="Phantom Draft:"/>
                                     <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
-                            </WrapPanel>
-
-                            <Separator/>
-
-                            <!--Expert Gauntlet Modes-->
-                            <TextBlock Text="Expert Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
-                            <WrapPanel Margin="0,0,0,3">
                                 <DockPanel Margin="0,0">
-                                    <TextBlock Text="Constructed:"/>
+                                    <TextBlock Text="Constructed (e):"/>
                                     <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
                                 <DockPanel Margin="5,0">
-                                    <TextBlock Text="Phantom Draft:"/>
+                                    <TextBlock Text="Phantom Draft (e):"/>
                                     <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
                                 </DockPanel>
                                 <DockPanel Margin="5,0">
