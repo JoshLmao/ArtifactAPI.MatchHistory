@@ -23,11 +23,11 @@ namespace ArtifactAPI.MatchHistory.Converters
                 case GauntletType.Constructed:
                     return "Constructed (c)";
                 case GauntletType.ConstructedExpert:
-                    return "Constructed (r)";
+                    return "Constructed (e)";
                 case GauntletType.KeeperDraftExpert:
-                    return "Keeper's Draft (r)";
+                    return "Keeper's Draft (e)";
                 case GauntletType.PhantomDraftExpert:
-                    return "Phantom Draft (r)";
+                    return "Phantom Draft (e)";
                 case GauntletType.RandomMeta:
                     return "Random Meta";
                 default:

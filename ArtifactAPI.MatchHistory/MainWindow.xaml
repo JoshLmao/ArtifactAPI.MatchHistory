@@ -100,7 +100,7 @@
                                     <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
                                 </DockPanel>
                                 <DockPanel Margin="10,0,5,0">
-                                    <TextBlock Text="Total Wins/Draws/Losses:"/>
+                                    <TextBlock Text="Total Wins/Losses:"/>
                                     <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
                                 </DockPanel>
                             </StackPanel>
