@@ -7,8 +7,12 @@
         /// </summary>
         None = 0,
         /// <summary>
-        /// (One of the) Players abandoned the game
+        /// One player surrendered
         /// </summary>
-        Abandoned = 1,
+        Surrendered = 1,
+        /// <summary>
+        /// A player abandoned the game
+        /// </summary>
+        Abandoned = 2,
     }
 }

@@ -19,9 +19,6 @@ namespace ArtifactAPI.MatchHistory.Converters
                     return Brushes.DarkRed;
                 case Outcome.Victory:
                     return Brushes.DarkGreen;
-                case Outcome.Draw:
-                case Outcome.Draw_:
-                    return Brushes.OrangeRed;
                 default:
                     {
                         Logger.OutputError($"Unable to Convert outcome to color - Unknown Outcome number '{value}'");

@@ -17,7 +17,7 @@ namespace ArtifactAPI.MatchHistory
         private ArtifactClient m_client = null;
         private List<Match> m_matches = null;
 
-        private static string VERSION = "v0.3.1";
+        private static string VERSION = "v0.4";
 
         public MainWindow()
         {
@@ -121,12 +121,10 @@ namespace ArtifactAPI.MatchHistory
 
             int totalWins = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
             int totalLoss = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
-            int totalDraw = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Draw || x.MatchOutcome == Enums.Outcome.Draw_ ? 1 : 0);
 
             int nb_totalWins = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Victory);
             int nb_totalLoss = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Loss);
-            int nb_totalDraws = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Draw);
-            tb_totalWinLoss.Text = $"{totalWins}/{totalDraw}/{totalLoss} ({nb_totalWins}/{nb_totalDraws}/{nb_totalLoss})";
+            tb_totalWinLoss.Text = $"{totalWins}/{totalLoss} ({nb_totalWins}/{nb_totalLoss})";
 
             //Modes
             SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
@@ -149,27 +147,25 @@ namespace ArtifactAPI.MatchHistory
         {
             MatchRate rate = GetWinRate(mode, allMatches);
             double mmPercent = GetPercent(rate.Wins, rate.Total);
-            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Draws}/{rate.Losses})";
+            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Losses})";
         }
 
         private void SetRate(Enums.GauntletType gauntletType, List<Match> allMatches, TextBlock tb)
         {
             MatchRate rate = GetWinRate(gauntletType, allMatches);
             double mmPercent = GetPercent(rate.Wins, rate.Total);
-            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Draws}/{rate.Losses})";
+            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Losses})";
         }
 
         private MatchRate GetWinRate(Enums.MatchMode mode, List<Match> allMatches)
         {
             int wonCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int drawCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
             int lossCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
             int total = allMatches.Sum(x => x.MatchMode == mode ? 1 : 0);
 
             return new MatchRate()
             {
                 Wins = wonCount,
-                Draws = drawCount,
                 Losses = lossCount,
                 Total = total,
             };
@@ -178,14 +174,12 @@ namespace ArtifactAPI.MatchHistory
         private MatchRate GetWinRate(Enums.GauntletType gauntedMode, List<Match> allMatches)
         {
             int wonCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int drawCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Draw ? 1 : 0);
             int lossCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
             int total = allMatches.Sum(x => x.GauntletType == gauntedMode ? 1 : 0);
 
             return new MatchRate()
             {
                 Wins = wonCount,
-                Draws = drawCount,
                 Losses = lossCount,
                 Total = total,
             };

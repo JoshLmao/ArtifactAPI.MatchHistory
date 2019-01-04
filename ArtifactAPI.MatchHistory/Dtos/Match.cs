@@ -143,23 +143,35 @@ namespace ArtifactAPI.MatchHistory.Dtos
 
         private async System.Threading.Tasks.Task LoadHeroUrl(string heroName, int heroIndex)
         {
+            bool isInvalid = false;
+            if (string.IsNullOrEmpty(heroName) || heroName == "0")
+            {
+                isInvalid = true;
+            }
+
             string url = await m_client.GetCardArtUrlAsync(heroName, ArtType.Ingame);
             if (string.IsNullOrEmpty(url))
             {
                 Logger.OutputError($"Cannot find URL for '{heroName}'");
-                return;
             }
 
             if (Heroes == null)
                 Heroes = new List<string>();
 
+            string blankHeroImgPath = "/Images/unknown_hero.png";
             if(Heroes.Count - 1 > heroIndex)
             {
-                Heroes.Insert(heroIndex, url);
+                if (isInvalid)
+                    Heroes.Insert(heroIndex, blankHeroImgPath);
+                else
+                    Heroes.Insert(heroIndex, url);
             }
             else
             {
-                Heroes.Add(url);
+                if (isInvalid)
+                    Heroes.Add(blankHeroImgPath);
+                else
+                    Heroes.Add(url);
             }
         }
     }

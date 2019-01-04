@@ -1,6 +1,7 @@
 ﻿using ArtifactAPI.MatchHistory.Dtos;
 using ArtifactAPI.MatchHistory.Enums;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ArtifactAPI.MatchHistory
@@ -28,7 +29,7 @@ namespace ArtifactAPI.MatchHistory
 
                     string[] properties = match.Split(PROPERTY_SEPARATOR);
                     Match m = new Match(client);
-
+                    int lastMatchOutcome = -1;
                     for (int i = 0; i < properties.Length; i++)
                     {
                         if (string.IsNullOrEmpty(properties[i]))
@@ -47,7 +48,7 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 2)
                         {
-                            m.MatchMode = IntToEnum<MatchMode>(int.Parse(properties[i]), MatchMode.Matchmaking);
+                            m.MatchMode = (MatchMode)IntToEnum<MatchMode>(int.Parse(properties[i]), MatchMode.Matchmaking);
                         }
                         else if (i == 3)
                         {
@@ -59,7 +60,8 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 5)
                         {
-                            m.MatchOutcome = IntToEnum<Outcome>(int.Parse(properties[i]), Outcome.Unknown);
+                            ///Store winning team outcome to set later
+                            lastMatchOutcome = int.Parse(properties[i]);
                         }
                         else if (i == 6)
                         {
@@ -75,11 +77,11 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 9)
                         {
-                            m.Team = IntToEnum<Teams>(int.Parse(properties[i]), Teams.Radiant);
+                            m.Team = (Teams)IntToEnum<Teams>(int.Parse(properties[i]), Teams.Radiant);
                         }
                         else if (i == 10)
                         {
-                            m.Flags = IntToEnum<Flags>(int.Parse(properties[i]), Flags.None);
+                            m.Flags = (Flags)IntToEnum<Flags>(int.Parse(properties[i]), Flags.None);
                         }
                         else if (i == 11)
                         {
@@ -123,7 +125,7 @@ namespace ArtifactAPI.MatchHistory
                         }
                         else if (i == 21)
                         {
-                            m.GauntletType = IntToEnum<GauntletType>(int.Parse(properties[i]), GauntletType.None);
+                            m.GauntletType = (GauntletType)IntToEnum<GauntletType>(int.Parse(properties[i]), GauntletType.None);
                         }
                         else if (i == 22)
                         {
@@ -136,6 +138,28 @@ namespace ArtifactAPI.MatchHistory
                             throw new NotImplementedException($"Unknown property - '{properties[i]}'");
                         }
                     }
+
+                    ///Set win outcome by seeing if the player's team matches the outcome team
+                    object value = IntToEnum<Teams>(lastMatchOutcome, -1);
+                    if(value is int)
+                    {
+                        ///The value doesn't exist in Teams - Meaning outcome isn't from a Team winning
+                        switch (lastMatchOutcome)
+                        {
+                            case 8:
+                                m.Flags = Flags.Abandoned;
+                                break;
+                            default:
+                                Logger.OutputError($"Unknown Match outcome '{lastMatchOutcome}'");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        ///If Outcome is Radiant or Dire, determine win or loss
+                        m.MatchOutcome = (Teams)lastMatchOutcome == m.Team ? Outcome.Victory : Outcome.Loss;
+                    }
+                    
 
                     ///Only add one instance of the game Id to the list.
                     ///Currently an issue with duplicate games in the history (Check ReadMe.md)
@@ -161,7 +185,7 @@ namespace ArtifactAPI.MatchHistory
         /// <returns></returns>
         private static string RemoveFormatting(string s)
         {
-            return System.Text.RegularExpressions.Regex.Replace(s, @"\t|\n|\r", "");
+            return System.Text.RegularExpressions.Regex.Replace(s, @"\t", "");
         }
 
         /// <summary>
@@ -171,19 +195,30 @@ namespace ArtifactAPI.MatchHistory
         /// <param name="number"></param>
         /// <param name="defaultResult">The result to return if the int does not exist</param>
         /// <returns></returns>
-        private static T IntToEnum<T>(int number, T defaultResult) where T : struct, IConvertible
+        private static object IntToEnum<T>(int number, object defaultResult) where T : struct, IConvertible
         {
             bool isDefined = Enum.IsDefined(typeof(T), number);
             if (isDefined)
             {
-                var values = Enum.GetValues(typeof(T));
-                return (T)values.GetValue(number);
+                var list = GetEnumList<T>();
+                T result = (T)Enum.Parse(typeof(T), list.Where(x => x.Value == number).FirstOrDefault().Key);
+                return result;
             }
             else
             {
                 Logger.OutputError($"Undefined MatchOutcome of value '{number}'");
                 return defaultResult;
             }
+        }
+
+        public static List<KeyValuePair<string, int>> GetEnumList<T>()
+        {
+            var list = new List<KeyValuePair<string, int>>();
+            foreach (var e in Enum.GetValues(typeof(T)))
+            {
+                list.Add(new KeyValuePair<string, int>(e.ToString(), (int)e));
+            }
+            return list;
         }
     }
 }

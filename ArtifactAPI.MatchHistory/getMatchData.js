@@ -13,7 +13,7 @@
             }
             all_output += output + (i == row_list.length - 1 ? "" : ",");
         }
-        all_output = all_output.replace(/\r?\n|\r/, '');
+        all_output = all_output.replace(/\t+/g, "");
     };
     const b1 = document.getElementById("load_more_button");
     const b2 = document.getElementById("inventory_history_loading");
@@ -34,7 +34,7 @@
                     /*Display title & text to copy*/
                     const b3 = document.getElementById("personaldata_elements_container");
                     const title = document.createElement("h1");
-                    const input = document.createElement("INPUT");
+                    const input = document.createElement("input");
                     input.setAttribute("value", all_output);
                     const copyBtn = document.createElement("button");
                     copyBtn.innerHTML = "Copy text (Insert into step 3)";
