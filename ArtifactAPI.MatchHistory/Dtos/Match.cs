@@ -27,12 +27,27 @@ namespace ArtifactAPI.MatchHistory.Dtos
         /// The version of the server the game was played on
         /// </summary>
         public int ServerVersion { get; set; }
+        /// <summary>
+        /// The outcome of the game for the player
+        /// </summary>
         public Outcome MatchOutcome { get; set; }
+        /// <summary>
+        /// The total turns the game had
+        /// </summary>
         public int Turns { get; set; }
+        /// <summary>
+        /// The start time of the game
+        /// </summary>
         public DateTime StartTime { get; set; }
         public int ClusterId { get; set; }
+        /// <summary>
+        /// The team the player is on
+        /// </summary>
         public Teams Team { get; set; }
-        public int Flags { get; set; }
+        /// <summary>
+        /// Set of flags that have been triggered in game - E.g, abandoned
+        /// </summary>
+        public Flags Flags { get; set; }
         /// <summary>
         /// Health of the first tower
         /// </summary>
@@ -49,7 +64,13 @@ namespace ArtifactAPI.MatchHistory.Dtos
         /// Health of the one exposed ancient, if a tower was destroyed
         /// </summary>
         public int Ancient { get; set; }
+        /// <summary>
+        /// The amount of seconds to complete the game
+        /// </summary>
         public int GameClock { get; set; }
+        /// <summary>
+        /// The type of Gauntlet being played
+        /// </summary>
         public GauntletType GauntletType { get; set; }
         /// <summary>
         /// The deck code of the deck used by the player

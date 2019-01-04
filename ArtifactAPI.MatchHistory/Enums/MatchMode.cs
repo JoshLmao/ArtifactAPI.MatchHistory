@@ -5,7 +5,7 @@
     /// </summary>
     public enum MatchMode
     {
-        Unknown = -1,
+        //Unknown = -1,
         /// <summary>
         /// Casual matchmaking against other players
         /// </summary>

@@ -21,7 +21,7 @@ namespace ArtifactAPI.MatchHistory.Tests
 
             int matchLength = 1000;
             string randomData = GetRandomMatchData(matchLength);
-            List<Match> matches = MatchDecoder.DecodeMatch(randomData, m_client);
+            List<Match> matches = MatchDecoder.ParseStringToMatches(randomData, m_client);
 
             Assert.IsNotNull(matches);
             Assert.IsTrue(matches.Count == matchLength);

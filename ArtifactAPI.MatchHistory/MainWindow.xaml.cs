@@ -90,7 +90,7 @@ namespace ArtifactAPI.MatchHistory
             TextBox box = e.Source as TextBox;
             string pasted = box.Text;
 
-            List<Match> matches = MatchDecoder.DecodeMatch(pasted, m_client);
+            List<Match> matches = MatchDecoder.ParseStringToMatches(pasted, m_client);
             if(matches == null)
             {
                 t_invalidCode.Visibility = Visibility.Visible;
