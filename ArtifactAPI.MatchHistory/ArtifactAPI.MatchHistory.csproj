@@ -68,6 +68,7 @@
     <Compile Include="Converters\FlagToVisibilityConverter.cs" />
     <Compile Include="Converters\GauntletToDisplayNameConverter.cs" />
     <Compile Include="Converters\GauntletTypeToVisibilityConverter.cs" />
+    <Compile Include="Converters\MatchModeToDisplayNameConverter.cs" />
     <Compile Include="Converters\ModeToVisibilityConverter.cs" />
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
     <Compile Include="Converters\SecondsToTimeFormatSeconds.cs" />

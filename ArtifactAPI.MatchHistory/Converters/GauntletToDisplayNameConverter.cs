@@ -19,19 +19,23 @@ namespace ArtifactAPI.MatchHistory.Converters
                 case GauntletType.None:
                     return "No Gauntlet";
                 case GauntletType.CasualPhantomDraft:
-                    return "Phantom Draft (c)";
+                    return "Expert Phantom Draft";
                 case GauntletType.Constructed:
-                    return "Constructed (c)";
+                    return "Constructed";
                 case GauntletType.ConstructedExpert:
-                    return "Constructed (e)";
-                case GauntletType.KeeperDraftExpert:
-                    return "Keeper's Draft (e)";
+                    return "Expert Constructed";
                 case GauntletType.PhantomDraftExpert:
-                    return "Phantom Draft (e)";
+                    return "Expert Phantom Draft";
+                case GauntletType.KeeperDraftExpert:
+                    return "Keeper's Draft";
                 case GauntletType.RandomMeta:
                     return "Random Meta";
                 default:
-                    throw new NotImplementedException("");
+                    {
+                        string error = $"Not implemented case for GauntletType enum - {type}";
+                        Logger.OutputError(error);
+                        throw new NotImplementedException(error);
+                    }
             }
         }
 

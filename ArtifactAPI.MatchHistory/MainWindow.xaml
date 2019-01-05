@@ -21,6 +21,7 @@
         <converters:ModeToVisibilityConverter x:Key="m2vc" />
         <converters:GauntletToDisplayNameConverter x:Key="g2dc"/>
         <converters:GauntletTypeToVisibilityConverter x:Key="gt2vc"/>
+        <converters:MatchModeToDisplayNameConverter x:Key="m2dc"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Name="c_getHistory" Visibility="Collapsed">
@@ -128,146 +129,166 @@
                             <!--Gauntlet Modes-->
                             <TextBlock Text="Gauntlet Types:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
                             <WrapPanel Margin="0,0,0,3">
-                                <DockPanel Margin="0,0,5,0">
-                                    <TextBlock Text="Call to Arms:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
-                                    <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="0,0,5,0">
-                                    <TextBlock Text="Constructed:"/>
-                                    <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="5,0">
-                                    <TextBlock Text="Phantom Draft:"/>
-                                    <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="0,0">
-                                    <TextBlock Text="Constructed (e):"/>
-                                    <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="5,0">
-                                    <TextBlock Text="Phantom Draft (e):"/>
-                                    <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="5,0">
-                                    <TextBlock Text="Keeper's Draft:"/>
-                                    <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
+                                <StackPanel>
+
+                                    <WrapPanel>
+                                        <DockPanel Margin="0,0,5,0">
+                                            <TextBlock Text="Call to Arms:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
+                                            <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="0,0,5,0">
+                                            <TextBlock Text="Constructed:"/>
+                                            <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="5,0">
+                                            <TextBlock Text="Phantom Draft:"/>
+                                            <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                    </WrapPanel>
+
+                                    <WrapPanel>
+                                        <DockPanel Margin="0,0">
+                                            <TextBlock Text="Expert Constructed:"/>
+                                            <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="5,0">
+                                            <TextBlock Text="Expert Phantom Draft:"/>
+                                            <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                        <DockPanel Margin="5,0">
+                                            <TextBlock Text="Keeper's Draft:"/>
+                                            <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
+                                        </DockPanel>
+                                    </WrapPanel>
+                                </StackPanel>
                             </WrapPanel>
                         </StackPanel>
                         
                         <!--Matches-->
-                        <ItemsControl Name="ic_gameHistory" Grid.Row="2">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type dtos:Match}">
-                                    <Border BorderBrush="Black" BorderThickness="1.5" Margin="5,3"  Height="60">
-                                        <Grid Background="#FF131312">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"/>
-                                                <ColumnDefinition Width="auto"/>
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <!--Left side-->
-                                            <StackPanel Orientation="Horizontal">
-                                                <Rectangle Fill="{Binding MatchOutcome, Converter={StaticResource o2cc}}" Width="7"/>
-                                                <!--Id, Mode-->
-                                                <StackPanel VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding MatchId}" Padding="5,1"/>
-                                                    <TextBlock Text="{Binding MatchMode}" Padding="5,1"/>
-                                                    <TextBlock Padding="5,1" Text="{Binding GauntletType, Converter={StaticResource g2dc}}" Visibility="{Binding GauntletType, Converter={StaticResource gt2vc}}"/>
-                                                </StackPanel>
-                                                <!--Player Id-->
-                                                <StackPanel VerticalAlignment="Center" Margin="3,0">
-                                                    <TextBlock Text="{Binding AccountId}" />
-                                                    <TextBlock Text="{Binding StartTime}" VerticalAlignment="Center"/>
-                                                    <TextBlock Text="Surrendered" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
-                                                </StackPanel>
-                                                <!--Details-->
-                                                <!--First Set-->
-                                                <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
-                                                        <TextBlock Text="Team:" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding Team}"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
-                                                        <TextBlock Text="Duration:" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding Duration, Converter={StaticResource t2dc}}"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                                <!--Second Set-->
-                                                <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
-                                                        <TextBlock Text="Outcome:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding MatchOutcome}" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
-                                                        <TextBlock Text="Total Turns:" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding Turns}"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                                <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0">
-                                                        <TextBlock Text="Remaining Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding GameClock, Converter={StaticResource s2tfc}}" VerticalAlignment="Center"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
-                                                        <TextBlock Text="Total Rounds:" Margin="0,0,3,0"/>
-                                                        <TextBlock Text="{Binding Turns}"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </StackPanel>
-
-                                            <!--Tower/Ancient Health-->
-                                            <Grid Grid.Column="1" HorizontalAlignment="Center" Margin="10,0">
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ItemsControl Name="ic_gameHistory">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type dtos:Match}">
+                                        <Border BorderBrush="Black" BorderThickness="1.5" Margin="5,3"  Height="60">
+                                            <Grid Background="#FF131312">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="130"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower1, Converter={StaticResource th2ic}}" Height="35"/>
-                                                    <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center" Width="15"/>
+
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Rectangle Fill="{Binding MatchOutcome, Converter={StaticResource o2cc}}" Width="7"/>
+                                                    <!--Id, Mode-->
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding MatchId}" Padding="5,1"/>
+                                                        <TextBlock Text="{Binding MatchMode, Converter={StaticResource m2dc}}" Padding="5,1"/>
+                                                        <Viewbox>
+                                                            <TextBlock Padding="5,1" Text="{Binding GauntletType, Converter={StaticResource g2dc}}" Visibility="{Binding GauntletType, Converter={StaticResource gt2vc}}"/>
+                                                        </Viewbox>
+                                                    </StackPanel>
                                                 </StackPanel>
-                                                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower2, Converter={StaticResource th2ic}}" Height="35"/>
-                                                    <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center" Width="15"/>
+                                                
+                                                <!--Details-->
+                                                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                                    <!--Player Id-->
+                                                    <StackPanel VerticalAlignment="Center" Margin="3,0">
+                                                        <TextBlock Text="{Binding AccountId}" />
+                                                        <TextBlock Text="{Binding StartTime}" VerticalAlignment="Center"/>
+                                                        <TextBlock Text="Surrendered" Foreground="DarkOrange" Visibility="{Binding Flags, Converter={StaticResource f2vc}}"/>
+                                                    </StackPanel>
+                                                    <StackPanel VerticalAlignment="Center" Margin="0,0,0,0">
+                                                        <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
+                                                            <TextBlock Text="Team:" Margin="0,0,3,0"/>
+                                                            <TextBlock Text="{Binding Team}"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                            <TextBlock Text="Duration:" Margin="0,0,3,0"/>
+                                                            <TextBlock Text="{Binding Duration, Converter={StaticResource t2dc}}"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <!--Second Set-->
+                                                    <StackPanel VerticalAlignment="Center" Margin="5,0,0,0">
+                                                        <StackPanel Orientation="Horizontal" Margin="3,0" VerticalAlignment="Top">
+                                                            <TextBlock Text="Total Turns:" Margin="0,0,3,0"/>
+                                                            <TextBlock Text="{Binding Turns}"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal" Margin="3,0">
+                                                            <TextBlock Text="Remaining Turn Time:" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                                                            <TextBlock Text="{Binding GameClock, Converter={StaticResource s2tfc}}" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
                                                 </StackPanel>
-                                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,2,0">
-                                                    <Image Source="{Binding Tower3, Converter={StaticResource th2ic}}" Height="35" />
-                                                    <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center" Width="15"/>
-                                                </StackPanel>
-                                                <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="5,0,2,0">
-                                                    <Image Source="{Binding Ancient, Converter={StaticResource th2ic}, ConverterParameter=1}" Height="35" />
-                                                    <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center" Width="15"/>
+
+                                                <!--Tower/Ancient Health-->
+                                                <Grid Grid.Column="2" HorizontalAlignment="Center" Margin="10,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,2,0">
+                                                        <Image Source="{Binding Tower1, Converter={StaticResource th2ic}}" Height="35"/>
+                                                        <TextBlock Text="{Binding Tower1}" VerticalAlignment="Center" Width="15"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0,0,2,0">
+                                                        <Image Source="{Binding Tower2, Converter={StaticResource th2ic}}" Height="35"/>
+                                                        <TextBlock Text="{Binding Tower2}" VerticalAlignment="Center" Width="15"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,2,0">
+                                                        <Image Source="{Binding Tower3, Converter={StaticResource th2ic}}" Height="35" />
+                                                        <TextBlock Text="{Binding Tower3}" VerticalAlignment="Center" Width="15"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="5,0,2,0">
+                                                        <Image Source="{Binding Ancient, Converter={StaticResource th2ic}, ConverterParameter=1}" Height="35" />
+                                                        <TextBlock Text="{Binding Ancient}" VerticalAlignment="Center" Width="15"/>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <!--Heroes & Icons-->
+                                                <StackPanel Grid.Column="3" VerticalAlignment="Center" Margin="10,0">
+                                                    <!--<TextBlock Text="{Binding DeckCode}"/>-->
+                                                    <ItemsControl ItemsSource="{Binding Heroes}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal"/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Image Source="{Binding }" Width="45" Margin="5,3"/>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
                                                 </StackPanel>
                                             </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            
+                            <!--Stats-->
+                            <StackPanel Grid.Column="1">
+                                <GroupBox Header="Lifetime Stats" Margin="5" Padding="5">
+                                    <TextBlock Text="data test"/>
+                                </GroupBox>
 
-                                            <!--Heroes & Icons-->
-                                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="10,0">
-                                                <!--<TextBlock Text="{Binding DeckCode}"/>-->
-                                                <ItemsControl ItemsSource="{Binding Heroes}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <StackPanel Orientation="Horizontal"/>
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <Image Source="{Binding }" Width="45" Margin="5,3"/>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                <GroupBox Header="Constructed Stats" Margin="5" Padding="5">
+                                    <TextBlock Text="data test"/>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                 </ScrollViewer>
             </Grid>
