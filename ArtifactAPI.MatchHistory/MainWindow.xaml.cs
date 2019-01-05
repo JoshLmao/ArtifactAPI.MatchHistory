@@ -121,6 +121,12 @@ namespace ArtifactAPI.MatchHistory
             ///Set lifetime stats
             List<ListItem> lifetimeStats = StatsController.GetLifetimeStats(allMatches);
             ic_lifeStats.ItemsSource = lifetimeStats;
+
+            List<ListItem> casualStats = StatsController.GetCasualStats(allMatches);
+            ic_casualStats.ItemsSource = casualStats;
+
+            List<ListItem> expertStats = StatsController.GetExpertStats(allMatches);
+            ic_expertStats.ItemsSource = expertStats;
         }
     }
 }

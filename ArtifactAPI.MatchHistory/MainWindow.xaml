@@ -223,19 +223,18 @@
                                                         <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
                                                         <StackPanel Grid.Column="1" Margin="2">
                                                             <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
-                                                            <ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="2" Margin="2">
                                                             <TextBlock Text="{Binding Percentage, StringFormat={}{0}%}" Margin="0,0,0,2"/>
-                                                            <ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
                                                         </StackPanel>
-                                                        
                                                     </Grid>
                                                 </Border>
                                             </DataTemplate>
 
                                             <DataTemplate DataType="{x:Type dtos:Separator}">
-                                                <Grid>
+                                                <Grid Margin="0,10,0,0">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition />
                                                         <ColumnDefinition />
@@ -249,9 +248,93 @@
                                         </ItemsControl.Resources>
                                     </ItemsControl>
                                 </GroupBox>
+                                <GroupBox Header="Casual Stats" Margin="5" Padding="5">
+                                    <ItemsControl Name="ic_casualStats">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.Resources>
+                                            <DataTemplate DataType="{x:Type dtos:Statistic}">
+                                                <Border BorderThickness="1" BorderBrush="Black" Margin="0,2">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
+                                                        <StackPanel Grid.Column="1" Margin="2">
+                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Margin="2">
+                                                            <TextBlock Text="{Binding Percentage}" Margin="0,0,0,2"/>
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
 
-                                <GroupBox Header="Constructed Stats" Margin="5" Padding="5">
-                                    <TextBlock Text="data test"/>
+                                            <DataTemplate DataType="{x:Type dtos:Separator}">
+                                                <Grid Margin="0,10,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Header}" FontWeight="Bold" Margin="5,0"/>
+                                                    <TextBlock Text="{Binding HeaderTwo}" Grid.Column="1" FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding HeaderThree}" Grid.Column="2" FontWeight="Bold"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.Resources>
+                                    </ItemsControl>
+                                </GroupBox>
+                                <GroupBox Header="Expert Stats" Margin="5" Padding="5">
+                                    <ItemsControl Name="ic_expertStats">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.Resources>
+                                            <DataTemplate DataType="{x:Type dtos:Statistic}">
+                                                <Border BorderThickness="1" BorderBrush="Black" Margin="0,2">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
+                                                        <StackPanel Grid.Column="1" Margin="2">
+                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Margin="2">
+                                                            <TextBlock Text="{Binding Percentage, StringFormat={}{0}%}" Margin="0,0,0,2"/>
+                                                            <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+
+                                            <DataTemplate DataType="{x:Type dtos:Separator}">
+                                                <Grid Margin="0,10,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Header}" FontWeight="Bold" Margin="5,0"/>
+                                                    <TextBlock Text="{Binding HeaderTwo}" Grid.Column="1" FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding HeaderThree}" Grid.Column="2" FontWeight="Bold"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.Resources>
+                                    </ItemsControl>
                                 </GroupBox>
                             </StackPanel>
                         </Grid>

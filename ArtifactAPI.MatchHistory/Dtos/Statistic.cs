@@ -3,12 +3,12 @@
     public class Statistic : ListItem
     {
         public string Name { get; set; }
-        public double Value { get; set; }
+        public object Value { get; set; }
         public double Percentage { get; set; }
 
         public Statistic() { }
 
-        public Statistic(string name, double value, double percent)
+        public Statistic(string name, object value, double percent)
         {
             Name = name;
             Value = value;

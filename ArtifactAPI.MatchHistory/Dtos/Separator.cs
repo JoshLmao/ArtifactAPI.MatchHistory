@@ -8,9 +8,9 @@
 
         public Separator(string h, string h2, string h3)
         {
-            this.Header = h;
-            this.HeaderTwo = h2;
-            this.HeaderThree = h3;
+            Header = h;
+            HeaderTwo = h2;
+            HeaderThree = h3;
         }
     }
 }

@@ -12,7 +12,7 @@
         /// <summary>
         /// Current meta Gauntlet (Featured tab)
         /// </summary>
-        RandomMeta = 5,
+        CallToArms = 5,
         /// <summary>
         /// Constructed, Expert - Costs 1 ticket, pick a deck, play until 5 mins or 2 losses
         /// </summary>

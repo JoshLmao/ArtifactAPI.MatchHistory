@@ -28,7 +28,7 @@ namespace ArtifactAPI.MatchHistory.Converters
                     return "Expert Phantom Draft";
                 case GauntletType.KeeperDraftExpert:
                     return "Keeper's Draft";
-                case GauntletType.RandomMeta:
+                case GauntletType.CallToArms:
                     return "Random Meta";
                 default:
                     {
