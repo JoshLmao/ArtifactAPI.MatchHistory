@@ -115,83 +115,12 @@ namespace ArtifactAPI.MatchHistory
 
             SetView(false);
 
-            //Set total stats
-            int totalWithoutBots = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match);
-            tb_totalMatches.Text = $"{allMatches.Count} matches ({totalWithoutBots} w/o bots)";
-
-            int totalWins = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int totalLoss = allMatches.Sum(x => x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
-
-            int nb_totalWins = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Victory);
-            int nb_totalLoss = allMatches.Count(x => x.MatchMode != Enums.MatchMode.Bot_Match && x.MatchOutcome == Enums.Outcome.Loss);
-            tb_totalWinLoss.Text = $"{totalWins}/{totalLoss} ({nb_totalWins}/{nb_totalLoss})";
-
-            //Modes
-            SetRate(Enums.MatchMode.Matchmaking, allMatches, tb_mmwr);
-            SetRate(Enums.MatchMode.Gauntlet, allMatches, tb_gwr);
-            SetRate(Enums.MatchMode.Bot_Match, allMatches, tb_bmwr);
-
-            SetRate(Enums.GauntletType.Constructed, allMatches, tb_ccwr);
-            //Call to Arms event - changes seasonally?
-            SetRate(Enums.GauntletType.RandomMeta, allMatches, tb_rmwr);
-            SetRate(Enums.GauntletType.CasualPhantomDraft, allMatches, tb_cpdwr);
-            //Expert modes 
-            SetRate(Enums.GauntletType.ConstructedExpert, allMatches, tb_ecwr);
-            SetRate(Enums.GauntletType.PhantomDraftExpert, allMatches, tb_pdwr);
-            SetRate(Enums.GauntletType.KeeperDraftExpert, allMatches, tb_kdwr);
-
+            ///Set game history
             ic_gameHistory.ItemsSource = allMatches;
-        }
 
-        private void SetRate(Enums.MatchMode mode, List<Match> allMatches, TextBlock tb)
-        {
-            MatchRate rate = GetWinRate(mode, allMatches);
-            double mmPercent = GetPercent(rate.Wins, rate.Total);
-            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Losses})";
-        }
-
-        private void SetRate(Enums.GauntletType gauntletType, List<Match> allMatches, TextBlock tb)
-        {
-            MatchRate rate = GetWinRate(gauntletType, allMatches);
-            double mmPercent = GetPercent(rate.Wins, rate.Total);
-            tb.Text = $"{mmPercent}% ({rate.Wins}/{rate.Losses})";
-        }
-
-        private MatchRate GetWinRate(Enums.MatchMode mode, List<Match> allMatches)
-        {
-            int wonCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int lossCount = allMatches.Sum(x => x.MatchMode == mode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
-            int total = allMatches.Sum(x => x.MatchMode == mode ? 1 : 0);
-
-            return new MatchRate()
-            {
-                Wins = wonCount,
-                Losses = lossCount,
-                Total = total,
-            };
-        }
-
-        private MatchRate GetWinRate(Enums.GauntletType gauntedMode, List<Match> allMatches)
-        {
-            int wonCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Victory ? 1 : 0);
-            int lossCount = allMatches.Sum(x => x.GauntletType == gauntedMode && x.MatchOutcome == Enums.Outcome.Loss ? 1 : 0);
-            int total = allMatches.Sum(x => x.GauntletType == gauntedMode ? 1 : 0);
-
-            return new MatchRate()
-            {
-                Wins = wonCount,
-                Losses = lossCount,
-                Total = total,
-            };
-        }
-
-        private double GetPercent(double amount, double total, int roundAmount = 1)
-        {
-            double percent = (amount / total) * 100;
-            if (double.IsNaN(percent))
-                return 0;
-            else
-                return Math.Round(percent, roundAmount);
+            ///Set lifetime stats
+            List<ListItem> lifetimeStats = StatsController.GetLifetimeStats(allMatches);
+            ic_lifeStats.ItemsSource = lifetimeStats;
         }
     }
 }

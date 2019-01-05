@@ -17,6 +17,6 @@
         /// <summary>
         /// Bot Match - played against a bot
         /// </summary>
-        Bot_Match = 8,
+        BotMatch = 8,
     }
 }

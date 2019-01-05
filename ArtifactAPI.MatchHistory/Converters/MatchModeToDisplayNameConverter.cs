@@ -16,7 +16,7 @@ namespace ArtifactAPI.MatchHistory.Converters
             MatchMode mode = (MatchMode)value;
             switch (mode)
             {
-                case MatchMode.Bot_Match:
+                case MatchMode.BotMatch:
                     return "Bot Match";
                 case MatchMode.Gauntlet:
                     return MatchMode.Gauntlet.ToString();

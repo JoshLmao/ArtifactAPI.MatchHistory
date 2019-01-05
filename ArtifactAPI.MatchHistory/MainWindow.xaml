@@ -88,82 +88,6 @@
                 <!--Data-->
                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                    
-                        <Grid Grid.Row="0" Margin="5,0,0,5" TextElement.FontSize="15">
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                <DockPanel>
-                                    <TextBlock Text="Total Matches:"/>
-                                    <TextBlock Name="tb_totalMatches" Text="999" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="10,0,5,0">
-                                    <TextBlock Text="Total Wins/Losses:"/>
-                                    <TextBlock Name="tb_totalWinLoss" Text="999/999/999" Padding="5,0"/>
-                                </DockPanel>
-                            </StackPanel>
-                        </Grid>
-                        <StackPanel Grid.Row="1" Margin="5,0,0,5" TextElement.FontSize="15">
-                            <!--Casual Gauntlet Modes-->
-                            <TextBlock Text="Modes:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
-                            <WrapPanel Orientation="Horizontal" Margin="0,0,0,3">
-                                <DockPanel>
-                                    <TextBlock Text="Matchmaking:"/>
-                                    <TextBlock Name="tb_mmwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="5,0">
-                                    <TextBlock Text="Gauntlet's:"/>
-                                    <TextBlock Name="tb_gwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                                <DockPanel Margin="5,0">
-                                    <TextBlock Text="Bot Match:"/>
-                                    <TextBlock Name="tb_bmwr" Text="100%" Padding="5,0"/>
-                                </DockPanel>
-                            </WrapPanel>
-
-                            <Separator/>
-
-                            <!--Gauntlet Modes-->
-                            <TextBlock Text="Gauntlet Types:" FontSize="17" FontWeight="SemiBold" Margin="0,3"/>
-                            <WrapPanel Margin="0,0,0,3">
-                                <StackPanel>
-
-                                    <WrapPanel>
-                                        <DockPanel Margin="0,0,5,0">
-                                            <TextBlock Text="Call to Arms:" ToolTip="The game modes on the Featured Tab, usually using the current meta's decks"/>
-                                            <TextBlock Name="tb_rmwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                        <DockPanel Margin="0,0,5,0">
-                                            <TextBlock Text="Constructed:"/>
-                                            <TextBlock Name="tb_ccwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                        <DockPanel Margin="5,0">
-                                            <TextBlock Text="Phantom Draft:"/>
-                                            <TextBlock Name="tb_cpdwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                    </WrapPanel>
-
-                                    <WrapPanel>
-                                        <DockPanel Margin="0,0">
-                                            <TextBlock Text="Expert Constructed:"/>
-                                            <TextBlock Name="tb_ecwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                        <DockPanel Margin="5,0">
-                                            <TextBlock Text="Expert Phantom Draft:"/>
-                                            <TextBlock Name="tb_pdwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                        <DockPanel Margin="5,0">
-                                            <TextBlock Text="Keeper's Draft:"/>
-                                            <TextBlock Name="tb_kdwr" Text="100%" Padding="5,0"/>
-                                        </DockPanel>
-                                    </WrapPanel>
-                                </StackPanel>
-                            </WrapPanel>
-                        </StackPanel>
-                        
                         <!--Matches-->
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions>
@@ -281,7 +205,49 @@
                             <!--Stats-->
                             <StackPanel Grid.Column="1">
                                 <GroupBox Header="Lifetime Stats" Margin="5" Padding="5">
-                                    <TextBlock Text="data test"/>
+                                    <ItemsControl Name="ic_lifeStats">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.Resources>
+                                            <DataTemplate DataType="{x:Type dtos:Statistic}">
+                                                <Border BorderThickness="1" BorderBrush="Black" Margin="0,2">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
+                                                        <StackPanel Grid.Column="1" Margin="2">
+                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2" Margin="2">
+                                                            <TextBlock Text="{Binding Percentage, StringFormat={}{0}%}" Margin="0,0,0,2"/>
+                                                            <ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />
+                                                        </StackPanel>
+                                                        
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+
+                                            <DataTemplate DataType="{x:Type dtos:Separator}">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Header}" FontWeight="Bold" Margin="5,0"/>
+                                                    <TextBlock Text="{Binding HeaderTwo}" Grid.Column="1" FontWeight="Bold"/>
+                                                    <TextBlock Text="{Binding HeaderThree}" Grid.Column="2" FontWeight="Bold"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.Resources>
+                                    </ItemsControl>
                                 </GroupBox>
 
                                 <GroupBox Header="Constructed Stats" Margin="5" Padding="5">

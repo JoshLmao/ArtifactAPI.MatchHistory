@@ -74,15 +74,19 @@
     <Compile Include="Converters\SecondsToTimeFormatSeconds.cs" />
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
     <Compile Include="Converters\TowerHealthToImageConverter.cs" />
+    <Compile Include="Dtos\ListItem.cs" />
     <Compile Include="Dtos\Match.cs" />
     <Compile Include="Dtos\MatchRate.cs" />
+    <Compile Include="Dtos\Separator.cs" />
     <Compile Include="Enums\Flags.cs" />
     <Compile Include="Enums\GauntletType.cs" />
     <Compile Include="Enums\MatchMode.cs" />
     <Compile Include="Enums\Outcome.cs" />
+    <Compile Include="Dtos\Statistic.cs" />
     <Compile Include="Enums\Teams.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MatchDecoder.cs" />
+    <Compile Include="StatsController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
