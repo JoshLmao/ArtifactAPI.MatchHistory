@@ -154,11 +154,12 @@ namespace ArtifactAPI.MatchHistory
             stats.Add(new Statistic("Dire", totalWonGames, winRate));
 
             ///Records
-            stats.Add(new Separator("Record", "Value", "Amount"));
-
-            ///Common Deck
-            var kvp = GetMostCommonDeck(matches);
-            stats.Add(new Statistic("Common Deck", kvp.Key, kvp.Value));
+            stats.Add(new Separator("Record", "Hero", "Pick Rate"));
+            
+            ///Most common hero card
+            KeyValuePair<string, int> mostCommonCardKVP = GetMostCommonHero(matches);
+            double usePercent = GetPercent((double)mostCommonCardKVP.Value, (double)matches.Count);
+            stats.Add(new Statistic("Common Hero", mostCommonCardKVP.Key, usePercent));
 
             stats.Add(new Separator("Record", "Value", "Game Id"));
 
@@ -166,7 +167,7 @@ namespace ArtifactAPI.MatchHistory
             {
                 ///Most Turns
                 Match mostTurnsGame = matches.Aggregate((x, y) => x.Turns > y.Turns ? x : y);
-                stats.Add(new Statistic("Most Turns", mostTurnsGame.Turns, mostTurnsGame.MatchId));
+                stats.Add(new Statistic("Most Turns in a game", mostTurnsGame.Turns, mostTurnsGame.MatchId));
 
                 ///Shortest Game
                 Match shortestGame = matches.Aggregate((x, y) => x.Flags == Flags.None && x.Duration < y.Duration? x : y);
@@ -178,7 +179,7 @@ namespace ArtifactAPI.MatchHistory
             }
             else
             {
-                stats.Add(new Statistic("Most Turns", "Unknown", 0));
+                stats.Add(new Statistic("Most Turns in a game", "Unknown", 0));
                 stats.Add(new Statistic("Shortest Game", "Unknown", 0));
                 stats.Add(new Statistic("Longest Game", "Unknown", 0));
             }
@@ -235,6 +236,48 @@ namespace ArtifactAPI.MatchHistory
 
             KeyValuePair<string, int> kvp = dict.Aggregate((x, y) => x.Value > y.Value ? x : y);
             return new KeyValuePair<string[], int>(kvp.Key.Split(','), kvp.Value);
+        }
+
+        private static KeyValuePair<string, int> GetMostCommonHero(List<Match> matches)
+        {
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            foreach (Match m in matches)
+            {
+                string mHero = m.Hero1;
+                if (dict.ContainsKey(mHero))
+                    dict[mHero] += 1;
+                else
+                    dict.Add(mHero, 1);
+
+                mHero = m.Hero2;
+                if (dict.ContainsKey(mHero))
+                    dict[mHero] += 1;
+                else
+                    dict.Add(mHero, 1);
+
+                mHero = m.Hero3;
+                if (dict.ContainsKey(mHero))
+                    dict[mHero] += 1;
+                else
+                    dict.Add(mHero, 1);
+
+                mHero = m.Hero4;
+                if (dict.ContainsKey(mHero))
+                    dict[mHero] += 1;
+                else
+                    dict.Add(mHero, 1);
+
+                mHero = m.Hero5;
+                if (dict.ContainsKey(mHero))
+                    dict[mHero] += 1;
+                else
+                    dict.Add(mHero, 1);
+            }
+
+            if (dict.Count > 0)
+                return dict.Aggregate((x, y) => x.Value > y.Value ? x : y);
+            else
+                return new KeyValuePair<string, int>("Unknown", 0);
         }
     }
 }

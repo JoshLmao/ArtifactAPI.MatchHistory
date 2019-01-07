@@ -22,6 +22,7 @@
         <converters:GauntletToDisplayNameConverter x:Key="g2dc"/>
         <converters:GauntletTypeToVisibilityConverter x:Key="gt2vc"/>
         <converters:MatchModeToDisplayNameConverter x:Key="m2dc"/>
+        <converters:ObjectToDisplayNameConverter x:Key="o2dnc"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Name="c_getHistory" Visibility="Collapsed">
@@ -222,7 +223,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
                                                         <StackPanel Grid.Column="1" Margin="2">
-                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <TextBlock Text="{Binding Value, Converter={StaticResource o2dnc}}" Margin="0,0,0,2"/>
                                                             <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="2" Margin="2">
@@ -266,7 +267,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
                                                         <StackPanel Grid.Column="1" Margin="2">
-                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <TextBlock Text="{Binding Value, Converter={StaticResource o2dnc}}" Margin="0,0,0,2"/>
                                                             <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="2" Margin="2">
@@ -310,7 +311,7 @@
                                                         </Grid.ColumnDefinitions>
                                                         <TextBlock Text="{Binding Name}" Margin="5,0" VerticalAlignment="Center"/>
                                                         <StackPanel Grid.Column="1" Margin="2">
-                                                            <TextBlock Text="{Binding Value}" Margin="0,0,0,2"/>
+                                                            <TextBlock Text="{Binding Value, Converter={StaticResource o2dnc}}" Margin="0,0,0,2"/>
                                                             <!--<ProgressBar Height="4" Value="5" Maximum="10" Margin="0,0,0,2" />-->
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="2" Margin="2">
