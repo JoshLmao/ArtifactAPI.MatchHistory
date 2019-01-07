@@ -70,6 +70,7 @@
     <Compile Include="Converters\GauntletTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\MatchModeToDisplayNameConverter.cs" />
     <Compile Include="Converters\ModeToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToDisplayNameConverter.cs" />
     <Compile Include="Converters\OutcomeToColorConverter.cs" />
     <Compile Include="Converters\SecondsToTimeFormatSeconds.cs" />
     <Compile Include="Converters\TimeToDisplayConverter.cs" />
