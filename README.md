@@ -7,9 +7,12 @@
   <a href="https://github.com/JoshLmao/ArtifactAPI.MatchHistory/releases">
     <img src="https://img.shields.io/badge/release-v0.5-green.svg?style=flat-square.svg"/>
   </a>
+  <a href="https://artifacthistory.joshlmao.com">
+    <img src="https://img.shields.io/badge/website-online-brightgreen.svg?style=flat-square.svg"/>
+  </a>
 </p>
 
-Simple application for viewing you match history in Artifact.
+Simple application for viewing you match history in Artifact. Now available [online!](https://artifacthistory.joshlmao.com)
 
 Thanks to [Bongikairu](https://github.com/bongikairu/illuminate) for originally creating the Javascript script [for his site to view your DotA 2 commends](https://illuminate.dotasphere.com/)
 
