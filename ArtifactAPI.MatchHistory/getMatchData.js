@@ -1,5 +1,6 @@
 (() => {
     let all_output = "";
+    let matchIds = [];
     /*Modified script from https://illuminate.dotasphere.com/*/
     const read_data = () => {
         const player_name = document.getElementsByClassName("profile_small_header_name")[0].children[0].textContent;
@@ -9,9 +10,18 @@
             const col_list = row_list[i].querySelectorAll("td");
             let output = "";
             for (let j = 0; j < col_list.length; j++){
+                /*Skip adding duplicate match Id's*/
+                if (j == 0) {
+                    if (!matchIds.includes(col_list[j].textContent)) {
+                        matchIds.push(col_list[j].textContent);
+                    } else {
+                        break;
+                    }
+                }
                 output += col_list[j].textContent + (j == col_list.length - 1 ? "" : "|");
             }
-            all_output += output + (i == row_list.length - 1 ? "" : ",");
+            if(output != "")
+                all_output += output + (i == row_list.length - 1 ? "" : ",");
         }
         all_output = all_output.replace(/\t+/g, "");
     };
