@@ -21,11 +21,13 @@ namespace ArtifactAPI.MatchHistory
             stats.Add(new Separator("Overview", "Matches", "Win Rate"));
 
             int totalGamesCount = matches.Count;
-            stats.Add(new Statistic("Total Games", totalGamesCount, 0));
+            int totalGamesWon = matches.Count(x => x.MatchOutcome == Outcome.Victory);
+            double winRate = GetPercent(totalGamesWon, totalGamesCount);
+            stats.Add(new Statistic("Total Games", totalGamesCount, winRate));
 
             List<Match> matchmakingGames = matches.Where(x => x.MatchMode == MatchMode.Matchmaking).ToList();
             int totalWonGames = matchmakingGames.Count(x => x.MatchOutcome == Outcome.Victory);
-            double winRate = GetPercent(totalWonGames, matchmakingGames.Count);
+            winRate = GetPercent(totalWonGames, matchmakingGames.Count);
             stats.Add(new Statistic("Matchmaking", matchmakingGames.Count, winRate));
 
             List<Match> gauntletGames = matches.Where(x => x.MatchMode == MatchMode.Gauntlet).ToList();
@@ -69,7 +71,7 @@ namespace ArtifactAPI.MatchHistory
             List<Match> epdGames = gauntletGames.Where(x => x.GauntletType == GauntletType.ConstructedExpert).ToList();
             totalWonGames = epdGames.Count(x => x.MatchOutcome == Outcome.Victory);
             winRate = GetPercent(totalWonGames, epdGames.Count);
-            stats.Add(new Statistic("Expert Constructed", epdGames.Count, winRate));
+            stats.Add(new Statistic("Expert Phantom's Draft", epdGames.Count, winRate));
 
             ///Keeper's Draft
             List<Match> keepersDraftGames = gauntletGames.Where(x => x.GauntletType == GauntletType.KeeperDraftExpert).ToList();
@@ -84,13 +86,13 @@ namespace ArtifactAPI.MatchHistory
             List<Match> radiantGames = matches.Where(x => x.Team == Teams.Radiant).ToList();
             totalWonGames = radiantGames.Count(x => x.MatchOutcome == Outcome.Victory);
             winRate = GetPercent(totalWonGames, radiantGames.Count);
-            stats.Add(new Statistic("Radiant", totalWonGames, winRate));
+            stats.Add(new Statistic("Radiant", radiantGames.Count, winRate));
 
             ///Dire Win Rate
             List<Match> direGames = matches.Where(x => x.Team == Teams.Dire).ToList();
             totalWonGames = direGames.Count(x => x.MatchOutcome == Outcome.Victory);
             winRate = GetPercent(totalWonGames, direGames.Count);
-            stats.Add(new Statistic("Dire", totalWonGames, winRate));
+            stats.Add(new Statistic("Dire", direGames.Count, winRate));
 
             return stats;
         }
@@ -139,7 +141,7 @@ namespace ArtifactAPI.MatchHistory
 
             int totalWonGames = matches.Count(x => x.MatchOutcome == Outcome.Victory);
             double winRate = GetPercent(totalWonGames, matches.Count);
-            stats.Add(new Statistic("Total Games", totalWonGames, winRate));
+            stats.Add(new Statistic("Total Games", matches.Count, winRate));
 
             ///Total Radiant Games
             List<Match> radiantGames = matches.Where(x => x.Team == Teams.Radiant).ToList();
