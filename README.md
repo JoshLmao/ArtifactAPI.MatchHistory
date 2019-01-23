@@ -37,4 +37,7 @@ Also, the deck code isn't correct and it seems it's Valve's problem. [Info](http
 
 If you want to support my open source work, please consider buying me a coffee (or two! ;D)
 
-[![Donate Link](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ijoshlmao)
+<a href="https://paypal.me/ijoshlmao"><img src="https://i.imgur.com/UfSd0gP.png" height="50px"/>
+
+<a href="https://ko-fi.com/joshlmao"><img src="https://i.imgur.com/zDeHMoK.png" height="50px"/>
+
