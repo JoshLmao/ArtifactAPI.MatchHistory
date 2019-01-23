@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ArtifactAPI.MatchHistory.Dtos;
 using ArtifactAPI.MatchHistory.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 
 namespace ArtifactAPI.MatchHistory.Tests
 {
@@ -19,7 +20,7 @@ namespace ArtifactAPI.MatchHistory.Tests
         {
             InitClient();
 
-            int matchLength = 1000;
+            int matchLength = 15;
             string randomData = GetRandomMatchData(matchLength);
             List<Match> matches = MatchDecoder.ParseStringToMatches(randomData, m_client);
 
@@ -45,7 +46,7 @@ namespace ArtifactAPI.MatchHistory.Tests
         {
             string builtString = null;
 
-            string playerName = "DodgyDave";
+            string playerName = "JoshLmao";
 
             for (int i = 0; i < matchLimit; i++)
             {
@@ -65,21 +66,24 @@ namespace ArtifactAPI.MatchHistory.Tests
                 int clusterId = 155;
                 int team = m_rnd.Next(0, 1);
                 int flags = m_rnd.Next(0, 0);
+
+                //If is a loss, make tower 1 and 2 zero health
                 //Random Tower One health
-                int towerOne = m_rnd.Next(0, 40);
+                int towerOne = matchOutcome != team ? 0 : m_rnd.Next(0, 40);
                 //Random Tower Two health
-                int towerTwo = m_rnd.Next(0, 40);
+                int towerTwo = matchOutcome != team ? 0 : m_rnd.Next(0, 40);
                 //Random Tower Three health
                 int towerThree = m_rnd.Next(0, 40);
                 //Random ancient health if towerOne Two or Three is 0
-                int ancient = towerOne == 0 || towerTwo == 0 || towerThree == 0 ? m_rnd.Next(0, 80) : 80;
+                int ancient = towerOne == 0 || towerTwo == 0 || towerThree == 0 ? m_rnd.Next(1, 80) : 80;
                 //Game time between 0 and 800 seconds
                 int gameClock = m_rnd.Next(0, 800);
 
                 //Get random hero names
                 string[] heroNames = GetRandomHeroNames();
                 //Get a random gauntlet id
-                int gauntletId = GetRandomFromEnum(typeof(GauntletType));
+                int[] ignoreNoneGauntletType = matchMode != (int)MatchMode.Gauntlet ? null : new int[] { 0 };
+                int gauntletId = GetRandomFromEnum(typeof(GauntletType), ignoreNoneGauntletType);
                 //Use any deck code since not supported yet
                 string deckCode = "ADCJbIGJ7kCwgSNScMFeF0CrN0BhmQBpQEmAQNBEiMBjbEBoAGtAUtCIEVjb24_";
 
@@ -120,10 +124,18 @@ namespace ArtifactAPI.MatchHistory.Tests
             return randomHeroes.ToArray();
         }
 
-        private int GetRandomFromEnum(Type enumType)
+        private int GetRandomFromEnum(Type enumType, params int[] d)
         {
             Array values = Enum.GetValues(enumType);
-            return (int)values.GetValue(m_rnd.Next(0, values.Length));
+
+            int randomedIndex = 0;
+            do
+            {
+                randomedIndex = (int)values.GetValue(m_rnd.Next(0, values.Length));
+            }
+            while (d != null && d.Contains(randomedIndex));
+
+            return randomedIndex;
         }
     }
 }
