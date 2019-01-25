@@ -5,7 +5,7 @@
     <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square.svg"/>
   </a>
   <a href="https://github.com/JoshLmao/ArtifactAPI.MatchHistory/releases">
-    <img src="https://img.shields.io/badge/release-v0.5-green.svg?style=flat-square.svg"/>
+    <img src="https://img.shields.io/badge/release-v0.6-brightgreen.svg?style=flat-square.svg"/>
   </a>
   <a href="https://artifacthistory.joshlmao.com">
     <img src="https://img.shields.io/badge/website-online-brightgreen.svg?style=flat-square.svg"/>
