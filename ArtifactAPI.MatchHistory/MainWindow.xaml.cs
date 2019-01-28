@@ -17,7 +17,7 @@ namespace ArtifactAPI.MatchHistory
         private ArtifactClient m_client = null;
         private List<Match> m_matches = null;
 
-        private static string VERSION = "v0.5";
+        private static string VERSION = "v0.6";
 
         public MainWindow()
         {
